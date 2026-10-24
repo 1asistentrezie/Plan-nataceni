@@ -145,6 +145,11 @@ header .hb{padding:14px 14px;font-size:16px}
 .sumbox{background:var(--acc);color:#12161c;border-radius:10px;padding:6px 12px;gap:2px}
 .sumrow{display:flex;align-items:center;gap:10px;justify-content:space-between}
 .sumrow label{opacity:.8}
+.bye{position:fixed;inset:0;z-index:100;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+.bye>div{max-width:460px}
+.bye h2{font:700 30px "Barlow Condensed",Arial Narrow,sans-serif;margin:0 0 12px}
+.bye p{font-size:18px;line-height:1.4;margin:0 0 22px;opacity:.85}
+.bye button{background:var(--acc);color:#12161c;border:0;border-radius:10px;padding:14px 22px;font:700 18px Barlow,Arial,sans-serif;min-height:48px}
 header .sumbox .big{font-size:20px;line-height:1.2}
 .sunrow{display:flex;align-items:center;gap:8px}
 .sunrow label{width:42px}
@@ -215,7 +220,7 @@ header .sumbox .big{font-size:20px;line-height:1.2}
 </header>
 <div class="posw" id="pospanel"></div>
 <main id="list"></main>
-<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="exp">Uložit k tisku</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button></div>
+<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="exp">Uložit k tisku</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
 <input type="file" id="file" accept="image/*" hidden>
@@ -377,10 +382,10 @@ document.getElementById("dt").addEventListener("change",function(e){S.date=e.tar
 document.getElementById("loc").addEventListener("change",function(e){var p=place();S.loc=e.target.value;if(S.loc==="custom"){S.lat=p[0];S.lon=p[1]}save();sunUI()});
 document.getElementById("lat").addEventListener("change",function(e){var v=parseFloat(e.target.value);if(isFinite(v)&&v>=-90&&v<=90)S.lat=v;save();sunUI()});
 document.getElementById("lon").addEventListener("change",function(e){var v=parseFloat(e.target.value);if(isFinite(v)&&v>=-180&&v<=180)S.lon=v;save();sunUI()});
-var dlgCb=null;
-function ask(t,y,cb,danger){document.getElementById("dtx").textContent=t;var b=document.getElementById("dyes");b.textContent=y;b.className=danger?"yes":"ok";dlgCb=cb;document.getElementById("dno").style.display=cb?"":"none";document.getElementById("dlg").classList.add("on")}
-function closeDlg(){dlgCb=null;document.getElementById("dlg").classList.remove("on")}
-document.getElementById("dno").addEventListener("click",closeDlg);
+var dlgCb=null,dlgNo=null;
+function ask(t,y,cb,danger,nl,ncb){document.getElementById("dtx").textContent=t;var b=document.getElementById("dyes");b.textContent=y;b.className=danger?"yes":"ok";var n=document.getElementById("dno");n.textContent=nl||"Zrušit";n.style.display=cb?"":"none";dlgNo=ncb||null;dlgCb=cb;document.getElementById("dlg").classList.add("on")}
+function closeDlg(){dlgCb=null;dlgNo=null;document.getElementById("dlg").classList.remove("on")}
+document.getElementById("dno").addEventListener("click",function(){var f=dlgNo;closeDlg();if(f)f()});
 document.getElementById("dyes").addEventListener("click",function(){var f=dlgCb;closeDlg();if(f)f()});
 document.getElementById("dlg").addEventListener("click",function(e){if(e.target===this)closeDlg()});
 document.getElementById("pn").addEventListener("input",function(e){S.name=e.target.value;document.title=(S.name?S.name+" – ":"")+"Plán natáčení";save()});
@@ -413,7 +418,19 @@ function saveFile(name,data,mime){
  return plainSave(name,data,mime);
 }
 function exportPlan(){saveFile("plan-natoceni.html",buildPrint(),"text/html")}
-function backupPlan(){saveFile("plan-natoceni-zaloha-"+today()+".json",JSON.stringify(S),"application/json")}
+function backupPlan(){return saveFile("plan-natoceni-zaloha-"+today()+".json",JSON.stringify(S),"application/json")}
+function quitApp(){
+ ask("Před ukončením uložit zálohu plánu do souboru?","Uložit zálohu",function(){backupPlan().then(confirmQuit,confirmQuit)},false,"Neukládat",confirmQuit);
+}
+function confirmQuit(){ask("Opravdu ukončit aplikaci?","Ukončit",doQuit,true)}
+function doQuit(){
+ save();
+ try{window.close()}catch(e){}
+ var o=document.createElement("div");o.className="bye";
+ o.innerHTML='<div><h2>Aplikace je připravena k zavření</h2><p>Plán je uložen. Aplikaci zavřeš přejetím prstem od spodního okraje displeje nahoru a odsunutím jejího okna. Znovu ji spustíš klepnutím na ikonu.</p><button id="byeback">Zpět do plánu</button></div>';
+ document.body.appendChild(o);
+ document.getElementById("byeback").onclick=function(){o.remove()};
+}
 function restorePlan(f){
  var r=new FileReader();
  r.onload=function(){var d=null;try{d=JSON.parse(r.result)}catch(e){}
@@ -426,6 +443,7 @@ document.getElementById("bk").addEventListener("click",backupPlan);
 document.getElementById("ld").addEventListener("click",function(){document.getElementById("imp").click()});
 document.getElementById("imp").addEventListener("change",function(e){var f=e.target.files[0];e.target.value="";if(f)restorePlan(f)});
 document.getElementById("prt").addEventListener("click",function(){window.print()});
+document.getElementById("qt").addEventListener("click",quitApp);
 var PP=document.getElementById("pospanel");
 PP.addEventListener("click",function(e){if(e.target===PP){S.posOpen=false;openSw=null;save();renderPanel();return}var b=e.target.closest("[data-act]");if(!b)return;var a=b.dataset.act;
  if(a==="postoggle"){S.posOpen=false;openSw=null;save();renderPanel();return}
