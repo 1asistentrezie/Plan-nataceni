@@ -131,6 +131,21 @@ header>:nth-child(6){order:12}
 .frow{display:flex;align-items:center;gap:8px}
 .frow>input,.frow>select{flex:1 1 auto;min-width:0;width:auto}
 .frow>.sw1{align-self:center}
+body::before{height:calc(env(safe-area-inset-top,0px) + 18px);background:#000}
+header{padding:34px 18px 16px;gap:10px 16px}
+header .hd label{font-size:12px}
+header .hd .big{font-size:22px}
+header input[type=time],header input[type=date],header input[type=number],header select{font-size:18px;padding:10px 8px}
+header .pn{font-size:28px;padding:8px 0}
+header .hb{padding:14px 14px;font-size:16px}
+#trk{padding:10px 12px;font-size:22px}
+#mn{font-size:17px}
+#sr,#ss{font-size:17px;padding:4px 6px}
+.stat{font-size:16px;padding:6px 12px}
+.sumbox{background:var(--acc);color:#12161c;border-radius:10px;padding:6px 12px;gap:2px}
+.sumrow{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.sumrow label{opacity:.8}
+header .sumbox .big{font-size:20px;line-height:1.2}
 .sunrow{display:flex;align-items:center;gap:8px}
 .sunrow label{width:42px}
 #sr,#ss{min-width:58px;text-align:center}
@@ -185,8 +200,7 @@ header>:nth-child(6){order:12}
 <input id="pn" class="pn" placeholder="Název projektu" aria-label="Název projektu" maxlength="80">
 <div class="hd"><label for="ds">Začátek směny</label><input id="ds" type="time"></div>
 <div class="hd"><label>Konec směny</label><span class="big" id="end">--:--</span></div>
-<div class="hd"><label>Celkem</label><span class="big" id="tot">0 min</span></div>
-<div class="hd"><label>Zbývá</label><span class="big" id="rem">0 min</span></div>
+<div class="hd sumbox"><div class="sumrow"><label>Celkem</label><span class="big" id="tot">0 min</span></div><div class="sumrow"><label>Zbývá</label><span class="big" id="rem">0 min</span></div></div>
 <button class="hb" id="mn" aria-haspopup="true" aria-label="Menu">Menu ▾</button>
 <button class="hb" id="trk" aria-pressed="false" aria-label="Sledovat čas" title="Sledovat čas">⏱</button>
 <div class="hd" id="ts" style="display:none"><label>Teď</label><span class="big" id="tn">--:--</span></div>
