@@ -151,6 +151,25 @@ header .hb{padding:14px 14px;font-size:16px}
 .bye p{font-size:18px;line-height:1.4;margin:0 0 22px;opacity:.85}
 .bye button{background:var(--acc);color:#12161c;border:0;border-radius:10px;padding:14px 22px;font:700 18px Barlow,Arial,sans-serif;min-height:48px}
 header .sumbox .big{font-size:20px;line-height:1.2}
+#shiftbox{order:4}
+#sumbox{order:10}
+#mn{order:12}
+.shiftbox{background:#cfe6fb;color:#12161c;border-radius:10px;padding:6px 12px;gap:2px}
+.shrow{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.shrow label{opacity:.8;min-width:84px}
+header .shiftbox .big{font-size:20px;line-height:1.2}
+.shiftbox input[type=time]{padding:2px 6px;font-size:18px;border-radius:6px}
+header .stat{font-size:12px;line-height:1.15;padding:4px 8px;white-space:normal;max-width:120px;text-align:left}
+header .shiftbox{flex-direction:row;align-items:center;gap:14px}
+.shtitle{font:700 22px/1 "Barlow Condensed",Arial Narrow,sans-serif}
+.shcol{display:flex;flex-direction:column;gap:2px}
+.shrow label{min-width:26px}
+header .shiftbox{gap:8px;padding:4px 8px}
+.shtitle{font-size:16px}
+.shrow{gap:6px}
+.shrow label{min-width:22px}
+.shiftbox input[type=time]{padding:1px 4px;font-size:15px;width:76px}
+header .shiftbox .big{font-size:16px;line-height:1.2}
 .sunrow{display:flex;align-items:center;gap:8px}
 .sunrow label{width:42px}
 #sr,#ss{min-width:58px;text-align:center}
@@ -203,9 +222,8 @@ header .sumbox .big{font-size:20px;line-height:1.2}
 <body>
 <header>
 <input id="pn" class="pn" placeholder="Název projektu" aria-label="Název projektu" maxlength="80">
-<div class="hd"><label for="ds">Začátek směny</label><input id="ds" type="time"></div>
-<div class="hd"><label>Konec směny</label><span class="big" id="end">--:--</span></div>
-<div class="hd sumbox"><div class="sumrow"><label>Celkem</label><span class="big" id="tot">0 min</span></div><div class="sumrow"><label>Zbývá</label><span class="big" id="rem">0 min</span></div></div>
+<div class="hd shiftbox" id="shiftbox"><span class="shtitle">Směna</span><div class="shcol"><div class="shrow"><label for="ds">od:</label><input id="ds" type="time"></div><div class="shrow"><label>do:</label><span class="big" id="end">--:--</span></div></div></div>
+<div class="hd sumbox" id="sumbox"><div class="sumrow"><label>Celkem</label><span class="big" id="tot">0 min</span></div><div class="sumrow"><label>Zbývá</label><span class="big" id="rem">0 min</span></div></div>
 <button class="hb" id="mn" aria-haspopup="true" aria-label="Menu">Menu ▾</button>
 <button class="hb" id="trk" aria-pressed="false" aria-label="Sledovat čas" title="Sledovat čas">⏱</button>
 <div class="hd" id="ts" style="display:none"><label>Teď</label><span class="big" id="tn">--:--</span></div>
