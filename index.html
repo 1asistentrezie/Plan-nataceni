@@ -210,6 +210,7 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 .cimg{position:absolute;inset:0;width:100%;height:100%;min-height:0;display:flex;align-items:center;justify-content:center}
 .cimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cx{z-index:2}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#12161c;color:#fff;padding:12px 20px;border-radius:10px;z-index:80;font:600 16px Barlow,Arial,sans-serif}
 .skrow{display:flex;align-items:flex-start;gap:8px}
 .skbtn{border:1px dashed var(--line);background:var(--field);border-radius:8px;padding:8px 12px;font:600 15px Barlow,Arial,sans-serif;min-height:40px}
 .skth{flex:0 1 220px;border:1px solid var(--line);border-radius:8px;padding:0;background:#fff;overflow:hidden;aspect-ratio:3/2}
@@ -224,6 +225,10 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 .skbar .skw{display:flex;align-items:center;justify-content:center}
 .skw i{display:block;width:26px;background:#fff;border-radius:3px}
 .sks{width:1px;height:30px;background:#555}
+.skemo{display:none;flex-wrap:wrap;gap:4px;padding:8px 12px;background:#1b1f26;max-height:34vh;overflow:auto}
+.skemo.on{display:flex}
+.skemo .dg{color:#fff;font:700 28px Arial,sans-serif}
+.skbar .skemo button,.skemo button{font-size:28px;min-width:48px;min-height:48px;background:transparent;border:0;padding:0;border-radius:8px}
 .skfill{flex:1}
 .skbar .skok{background:var(--acc);color:#12161c;border-color:var(--acc)}
 .skwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px}
@@ -298,16 +303,16 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 </header>
 <div class="posw" id="pospanel"></div>
 <main id="list"></main>
-<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="exp">Uložit k tisku</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button></div>
+<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="exp">Uložit k tisku</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button><button class="mi" id="pdf">Uložit jako PDF</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
 <div class="skov" id="skov" role="dialog" aria-modal="true" aria-label="Kresba"><div class="skbar">
 <button class="skc" data-c="#12161c" style="background:#12161c" aria-label="Černá"></button><button class="skc" data-c="#d9433b" style="background:#d9433b" aria-label="Červená"></button><button class="skc" data-c="#2f6fca" style="background:#2f6fca" aria-label="Modrá"></button><button class="skc" data-c="#3aa655" style="background:#3aa655" aria-label="Zelená"></button><button class="skc" data-c="#f08a24" style="background:#f08a24" aria-label="Oranžová"></button>
 <span class="sks"></span>
 <button class="skw" data-w="2" aria-label="Tenká"><i style="height:2px"></i></button><button class="skw" data-w="5" aria-label="Střední"><i style="height:5px"></i></button><button class="skw" data-w="10" aria-label="Tlustá"><i style="height:10px"></i></button>
 <span class="sks"></span>
-<button id="skpen">Tužka</button><button id="skera">Guma</button><button id="skundo">Zpět</button><button id="skclr">Smazat vše</button>
+<button id="skpen">Tužka</button><button id="skera">Guma</button><button id="skemoB">😀</button><button id="skimg">Obrázek</button><button id="skundo">Zpět</button><button id="skclr">Smazat vše</button>
 <span class="skfill"></span><button id="skcancel">Zrušit</button><button id="sksave" class="skok">Hotovo</button></div>
-<div class="skwrap"><canvas id="skcv" width="1500" height="1000"></canvas></div></div>
+<div class="skemo" id="skemo"><button class="dg" data-e="0">0</button><button class="dg" data-e="1">1</button><button class="dg" data-e="2">2</button><button class="dg" data-e="3">3</button><button class="dg" data-e="4">4</button><button class="dg" data-e="5">5</button><button class="dg" data-e="6">6</button><button class="dg" data-e="7">7</button><button class="dg" data-e="8">8</button><button class="dg" data-e="9">9</button><button data-e="😀">😀</button><button data-e="😂">😂</button><button data-e="😍">😍</button><button data-e="😎">😎</button><button data-e="🤔">🤔</button><button data-e="😮">😮</button><button data-e="😬">😬</button><button data-e="👍">👍</button><button data-e="👎">👎</button><button data-e="👏">👏</button><button data-e="🙌">🙌</button><button data-e="👉">👉</button><button data-e="👈">👈</button><button data-e="👆">👆</button><button data-e="👇">👇</button><button data-e="✅">✅</button><button data-e="❌">❌</button><button data-e="⚠️">⚠️</button><button data-e="❗">❗</button><button data-e="❓">❓</button><button data-e="⭐">⭐</button><button data-e="🔥">🔥</button><button data-e="💥">💥</button><button data-e="💡">💡</button><button data-e="🔦">🔦</button><button data-e="🎬">🎬</button><button data-e="🎥">🎥</button><button data-e="📷">📷</button><button data-e="🎞️">🎞️</button><button data-e="🎤">🎤</button><button data-e="🎧">🎧</button><button data-e="🔊">🔊</button><button data-e="🎭">🎭</button><button data-e="🚁">🚁</button><button data-e="🚗">🚗</button><button data-e="🚤">🚤</button><button data-e="🚶">🚶</button><button data-e="🏃">🏃</button><button data-e="👤">👤</button><button data-e="👥">👥</button><button data-e="🌧️">🌧️</button><button data-e="☀️">☀️</button><button data-e="🌙">🌙</button><button data-e="🌫️">🌫️</button><button data-e="⏱️">⏱️</button><button data-e="⏰">⏰</button><button data-e="🕯️">🕯️</button><button data-e="🪑">🪑</button><button data-e="📍">📍</button><button data-e="➡️">➡️</button><button data-e="⬅️">⬅️</button><button data-e="⬆️">⬆️</button><button data-e="⬇️">⬇️</button><button data-e="🔄">🔄</button><button data-e="↩️">↩️</button></div><input type="file" id="skfile" accept="image/*" hidden><div class="skwrap"><canvas id="skcv" width="1500" height="1000"></canvas></div></div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
 <input type="file" id="file" accept="image/*" hidden>
 <script>
@@ -396,10 +401,10 @@ function skBox(s){return '<div class="skrow">'+(s.sketch?'<button class="skth" d
 function skCtx(){return document.getElementById("skcv").getContext("2d")}
 function skW(st,p){return st.w*(st.era?5:1)*(st.pen?(0.4+(p||0.5)*1.2):1)}
 function skSeg(c,st,a,b){c.strokeStyle=st.era?"#fff":st.c;c.lineCap="round";c.lineJoin="round";c.lineWidth=skW(st,b[2]);c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke()}
-function skDraw(c,st){var p=st.pts;if(p.length===1){c.fillStyle=st.era?"#fff":st.c;c.beginPath();c.arc(p[0][0],p[0][1],skW(st,p[0][2])/2,0,6.2832);c.fill();return}for(var i=1;i<p.length;i++)skSeg(c,st,p[i-1],p[i])}
+function skDraw(c,st){if(st.t==="img"){c.drawImage(st.im,st.x,st.y,st.w,st.h);return}if(st.t==="emo"){c.save();c.textAlign="center";c.textBaseline="middle";var dg=/^[0-9]$/.test(st.ch);c.font=dg?"700 "+st.size+'px -apple-system,"Helvetica Neue",Arial,sans-serif':st.size+'px "Apple Color Emoji","Segoe UI Emoji",sans-serif';c.fillStyle=st.c||"#12161c";c.fillText(st.ch,st.x,st.y);c.restore();return}var p=st.pts;if(p.length===1){c.fillStyle=st.era?"#fff":st.c;c.beginPath();c.arc(p[0][0],p[0][1],skW(st,p[0][2])/2,0,6.2832);c.fill();return}for(var i=1;i<p.length;i++)skSeg(c,st,p[i-1],p[i])}
 function skRedraw(){var cv=document.getElementById("skcv"),c=skCtx();c.fillStyle="#fff";c.fillRect(0,0,cv.width,cv.height);if(SK.base)c.drawImage(SK.base,0,0,cv.width,cv.height);SK.strokes.forEach(function(st){skDraw(c,st)})}
-function skSync(){var ov=document.getElementById("skov");ov.querySelectorAll(".skc").forEach(function(b){b.classList.toggle("on",!SK.era&&b.dataset.c===SK.color)});ov.querySelectorAll(".skw").forEach(function(b){b.classList.toggle("on",+b.dataset.w===SK.w)});document.getElementById("skpen").classList.toggle("on",!SK.era);document.getElementById("skera").classList.toggle("on",SK.era)}
-function openSketch(i){var s=S.shots[i];SK.i=i;SK.strokes=[];SK.base=null;SK.era=false;SK.cur=null;SK.loading=false;
+function skSync(){var ov=document.getElementById("skov");ov.querySelectorAll(".skc").forEach(function(b){b.classList.toggle("on",!SK.era&&!SK.emo&&b.dataset.c===SK.color)});ov.querySelectorAll(".skw").forEach(function(b){b.classList.toggle("on",+b.dataset.w===SK.w)});document.getElementById("skpen").classList.toggle("on",!SK.era&&!SK.emo);document.getElementById("skera").classList.toggle("on",SK.era);var eb=document.getElementById("skemoB");eb.textContent=SK.emo||"😀";eb.classList.toggle("on",!!SK.emo)}
+function openSketch(i){var s=S.shots[i];SK.i=i;SK.strokes=[];SK.base=null;SK.era=false;SK.emo=null;SK.cur=null;SK.loading=false;document.getElementById("skemo").classList.remove("on");
  var cv=document.getElementById("skcv");cv.width=1500;cv.height=1000;
  document.getElementById("skov").classList.add("on");skSync();skRedraw();
  if(s.sketch){SK.loading=true;var im=new Image();im.onload=function(){SK.base=im;SK.loading=false;skRedraw()};im.onerror=function(){SK.loading=false};im.src=s.sketch}
@@ -409,21 +414,117 @@ function saveSk(){if(SK.loading){return}var s=S.shots[SK.i];if(s){if(SK.strokes.
 (function(){
  var cv=document.getElementById("skcv"),ov=document.getElementById("skov");
  function pt(e){var r=cv.getBoundingClientRect();return [(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height,e.pointerType==="pen"?e.pressure:0.5]}
- cv.addEventListener("pointerdown",function(e){if(e.pointerType==="pen")SK.penSeen=true;else if(SK.penSeen)return;e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(x){}SK.cur={c:SK.color,w:SK.w,era:SK.era,pen:e.pointerType==="pen",pts:[pt(e)],id:e.pointerId};SK.strokes.push(SK.cur);skDraw(skCtx(),SK.cur)});
+ cv.addEventListener("pointerdown",function(e){if(e.pointerType==="pen")SK.penSeen=true;else if(SK.penSeen)return;if(SK.emo){e.preventDefault();var p0=pt(e),it={t:"emo",ch:SK.emo,c:SK.color,x:p0[0],y:p0[1],size:({2:64,5:110,10:180})[SK.w]||110};SK.strokes.push(it);skDraw(skCtx(),it);return}e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(x){}SK.cur={c:SK.color,w:SK.w,era:SK.era,pen:e.pointerType==="pen",pts:[pt(e)],id:e.pointerId};SK.strokes.push(SK.cur);skDraw(skCtx(),SK.cur)});
  cv.addEventListener("pointermove",function(e){if(!SK.cur||e.pointerId!==SK.cur.id)return;e.preventDefault();var evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];if(!evs.length)evs=[e];var c=skCtx();evs.forEach(function(ev){var a=SK.cur.pts[SK.cur.pts.length-1],b=pt(ev);SK.cur.pts.push(b);skSeg(c,SK.cur,a,b)})});
  function end(e){if(SK.cur&&e.pointerId===SK.cur.id)SK.cur=null}
  cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
  ov.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
-  if(b.dataset.c){SK.color=b.dataset.c;SK.era=false}
+  if(b.dataset.e){SK.emo=b.dataset.e;SK.era=false;document.getElementById("skemo").classList.remove("on")}else if(b.id==="skemoB"){document.getElementById("skemo").classList.toggle("on");skSync();return}else if(b.id==="skimg"){document.getElementById("skfile").click();return}else if(b.dataset.c){SK.color=b.dataset.c;SK.era=false;SK.emo=null}
   else if(b.dataset.w){SK.w=+b.dataset.w}
-  else if(b.id==="skpen"){SK.era=false}
-  else if(b.id==="skera"){SK.era=true}
+  else if(b.id==="skpen"){SK.era=false;SK.emo=null}
+  else if(b.id==="skera"){SK.era=true;SK.emo=null}
   else if(b.id==="skundo"){SK.strokes.pop();skRedraw()}
   else if(b.id==="skclr"){ask("Smazat celou kresbu?","Smazat",function(){SK.strokes=[];SK.base=null;skRedraw()},true);return}
   else if(b.id==="skcancel"){if(SK.strokes.length)ask("Zahodit kresbu bez uložení?","Zahodit",closeSk,true);else closeSk();return}
   else if(b.id==="sksave"){saveSk();return}
   skSync()});
 })();
+var PFF='-apple-system,"Helvetica Neue",Arial,sans-serif';
+function toast(m,ms){var t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);if(ms)setTimeout(function(){t.remove()},ms);return t}
+function loadImg(src){return new Promise(function(res){if(!src){res(null);return}var im=new Image();im.onload=function(){res(im)};im.onerror=function(){res(null)};im.src=src})}
+function pdfWrap(c,text,maxW){var out=[];if(!text)return out;String(text).split("\n").forEach(function(par){var words=par.split(" "),line="";words.forEach(function(w){var t=line?line+" "+w:w;if(c.measureText(t).width<=maxW){line=t;return}if(line){out.push(line);line=""}while(c.measureText(w).width>maxW&&w.length>1){var k=w.length;while(k>1&&c.measureText(w.slice(0,k)).width>maxW)k--;out.push(w.slice(0,k));w=w.slice(k)}line=w});out.push(line)});return out}
+function pdfFit(im,w,h){var r=Math.min(w/im.width,h/im.height);return [im.width*r,im.height*r]}
+function pdfCover(c,im,x,y,w,h){var r=Math.max(w/im.width,h/im.height),dw=im.width*r,dh=im.height*r;c.save();c.beginPath();c.rect(x,y,w,h);c.clip();c.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh);c.restore()}
+function pdfFitFont(c,text,w,wt,max){var s=max;while(s>12){c.font=wt+" "+s+"px "+PFF;if(c.measureText(text).width<=w)break;s--}return s}
+function dataUrlBytes(u){var b=atob(u.split(",")[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+function buildPdf(jpgs,pw,ph){
+ var enc=new TextEncoder(),chunks=[],len=0,offs=[];
+ function put(x){var u=typeof x==="string"?enc.encode(x):x;chunks.push(u);len+=u.length}
+ function obj(n,body){offs[n]=len;put(n+" 0 obj\n"+body+"\nendobj\n")}
+ put("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
+ var N=jpgs.length,kids=[],k;for(k=0;k<N;k++)kids.push((3+3*k)+" 0 R");
+ obj(1,"<< /Type /Catalog /Pages 2 0 R >>");
+ obj(2,"<< /Type /Pages /Kids ["+kids.join(" ")+"] /Count "+N+" >>");
+ for(k=0;k<N;k++){var pid=3+3*k,cid=pid+1,iid=pid+2,j=jpgs[k];
+  obj(pid,"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+pw+" "+ph+"] /Resources << /XObject << /Im0 "+iid+" 0 R >> >> /Contents "+cid+" 0 R >>");
+  var cs="q "+pw+" 0 0 "+ph+" 0 0 cm /Im0 Do Q";
+  obj(cid,"<< /Length "+cs.length+" >>\nstream\n"+cs+"\nendstream");
+  offs[iid]=len;put(iid+" 0 obj\n<< /Type /XObject /Subtype /Image /Width "+j.w+" /Height "+j.h+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+j.b.length+" >>\nstream\n");put(j.b);put("\nendstream\nendobj\n");
+ }
+ var xr=len,total=3+3*N,x="xref\n0 "+total+"\n0000000000 65535 f \n";
+ for(var o=1;o<total;o++)x+=String(offs[o]).padStart(10,"0")+" 00000 n \n";
+ put(x+"trailer\n<< /Size "+total+" /Root 1 0 R >>\nstartxref\n"+xr+"\n%%EOF\n");
+ var out=new Uint8Array(len),p=0;chunks.forEach(function(c){out.set(c,p);p+=c.length});return out;
+}
+async function makePdf(){
+ var tb=toast("Vytvářím PDF…");
+ try{
+  var W=1684,H=1190,M=40,CW=W-2*M,COLW=[170,320,260,250,494,110],X=[M],q;
+  for(q=0;q<5;q++)X.push(X[q]+COLW[q]);
+  var T=calc(),sc=document.createElement("canvas").getContext("2d"),rows=[],n=0;
+  var imgs=await Promise.all(S.shots.map(function(s){return Promise.all([loadImg(s.img),loadImg(s.cam&&S.posImg?S.posImg[s.cam]:""),loadImg(s.sketch)])}));
+  S.shots.forEach(function(s,i){
+   var r={s:s,i:i,t:toT(T[i].a)+" – "+toT(T[i].b),im:imgs[i][0],pim:imgs[i][1],sk:imgs[i][2]};
+   if(s.type==="item"){r.item=true;r.h=66}
+   else{
+    n++;r.n=n;
+    sc.font="700 24px "+PFF;r.tl=pdfWrap(sc,r.n+". "+(s.title||""),COLW[2]-24).slice(0,7);
+    sc.font="700 22px "+PFF;r.cl=s.cam?pdfWrap(sc,posLabel(+s.cam),COLW[3]-24).slice(0,2):[];
+    sc.font="500 18px "+PFF;r.cn=s.camnote?pdfWrap(sc,s.camnote,COLW[3]-24).slice(0,3):[];
+    sc.font="500 20px "+PFF;r.nl=s.note?pdfWrap(sc,s.note,COLW[4]-24):[];
+    r.f1=r.im?pdfFit(r.im,COLW[1]-20,300):[0,0];r.f2=r.sk?pdfFit(r.sk,COLW[4]-24,240):[0,0];
+    var hT=r.tl.length*30+24,hC=24+r.cl.length*28+(r.pim?136:0)+r.cn.length*24,hN=24+r.nl.length*26+(r.sk?r.f2[1]+10:0),hI=r.im?r.f1[1]+20:0;
+    r.h=Math.max(150,hT,hC,hN,hI);
+   }
+   rows.push(r)});
+  function startY(p){return (p===0?M+112:M+40)+38}
+  var limit=H-M-30,pages=[[]],pg=0,y=startY(0);
+  rows.forEach(function(r){if(y+r.h>limit&&pages[pg].length){pg++;pages[pg]=[];y=startY(pg)}r.y=y;pages[pg].push(r);y+=r.h});
+  var NP=pages.length,jpgs=[];
+  var d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.loc==="custom"?S.lat+", "+S.lon:S.loc,g=function(id){return document.getElementById(id).textContent},nm=S.name||"Plán natáčení";
+  var meta=[ds,loc,"Směna "+S.dayStart+" – "+g("end"),"Východ "+g("sr")+" · Západ "+g("ss"),"Celkem "+g("tot")];
+  function drawRow(c,r){
+   var s=r.s,y=r.y,h=r.h,ci=colorInfo(s.color),pc=s.cam&&S.pos?colorInfo(S.pos[s.cam]):null,k;
+   if(r.item){c.fillStyle="#f1f1f1";c.fillRect(M,y,CW,h)}
+   c.fillStyle="#12161c";var fs=pdfFitFont(c,r.t,COLW[0]-20,"700",24);c.fillText(r.t,X[0]+10,y+12);
+   c.fillStyle="#555";c.font="500 18px "+PFF;c.fillText(s.dur+" min",X[0]+10,y+12+fs+8);
+   if(r.item){c.fillStyle="#12161c";c.font="600 24px "+PFF;c.fillText((s.title||"Položka")+(s.done?"  ✓":""),X[1]+12,y+(h-28)/2)}
+   else{
+    if(r.im)c.drawImage(r.im,X[1]+10,y+10,r.f1[0],r.f1[1]);
+    if(ci){c.fillStyle=ci[1];c.fillRect(X[2],y,COLW[2],h)}
+    c.fillStyle=ci?ci[2]:"#12161c";c.font="700 24px "+PFF;r.tl.forEach(function(l,k2){c.fillText(l,X[2]+12,y+12+k2*30)});
+    if(pc){c.fillStyle=pc[1];c.fillRect(X[3],y,COLW[3],h)}
+    var cf=pc?pc[2]:"#12161c",cy=y+12;
+    c.fillStyle=cf;c.font="700 22px "+PFF;r.cl.forEach(function(l){c.fillText(l,X[3]+12,cy);cy+=28});
+    if(r.pim){pdfCover(c,r.pim,X[3]+12,cy+2,COLW[3]-24,126);cy+=136}
+    c.fillStyle=cf;c.font="500 18px "+PFF;r.cn.forEach(function(l){c.fillText(l,X[3]+12,cy);cy+=24});
+    c.fillStyle="#12161c";c.font="500 20px "+PFF;var ny=y+12;r.nl.forEach(function(l){c.fillText(l,X[4]+12,ny);ny+=26});
+    if(r.sk){c.drawImage(r.sk,X[4]+12,ny+4,r.f2[0],r.f2[1]);c.strokeStyle="#bbb";c.strokeRect(X[4]+12,ny+4,r.f2[0],r.f2[1])}
+    if(s.done){c.fillStyle="#17803f";c.fillRect(X[5]+8,y+8,COLW[5]-16,74);c.fillStyle="#fff";c.font="700 17px "+PFF;c.textAlign="center";c.fillText("NATOČENO",X[5]+COLW[5]/2,y+22);if(s.doneAt){c.font="500 16px "+PFF;c.fillText("v "+fmtHM(s.doneAt),X[5]+COLW[5]/2,y+48)}c.textAlign="left"}
+   }
+   c.strokeStyle="#aaa";c.lineWidth=1;
+   if(r.item){c.strokeRect(M,y,CW,h);c.beginPath();c.moveTo(X[1],y);c.lineTo(X[1],y+h);c.stroke()}
+   else{for(k=0;k<6;k++)c.strokeRect(X[k],y,COLW[k],h)}
+  }
+  for(var p=0;p<NP;p++){
+   var cv=document.createElement("canvas");cv.width=W;cv.height=H;var c=cv.getContext("2d");
+   c.fillStyle="#fff";c.fillRect(0,0,W,H);c.textBaseline="top";c.textAlign="left";
+   if(p===0){c.fillStyle="#12161c";c.font="700 44px "+PFF;c.fillText(nm,M,M);c.fillStyle="#444";c.font="500 22px "+PFF;c.fillText(meta.join("   ·   "),M,M+60)}
+   else{c.fillStyle="#666";c.font="500 20px "+PFF;c.fillText(nm+" – plán natáčení",M,M)}
+   var hy=startY(p)-38;
+   c.fillStyle="#e8e9ec";c.fillRect(M,hy,CW,38);c.fillStyle="#12161c";c.font="700 18px "+PFF;
+   ["Čas","Storyboard","Záběr","Kamera","Poznámky","Stav"].forEach(function(t,k){c.fillText(t,X[k]+12,hy+9)});
+   c.strokeStyle="#aaa";c.lineWidth=1;c.strokeRect(M,hy,CW,38);
+   pages[p].forEach(function(r){drawRow(c,r)});
+   c.fillStyle="#666";c.font="500 18px "+PFF;c.textAlign="right";c.fillText((p+1)+" / "+NP,W-M,H-M-6);c.textAlign="left";
+   jpgs.push({b:dataUrlBytes(cv.toDataURL("image/jpeg",0.88)),w:W,h:H});
+  }
+  var pdf=buildPdf(jpgs,842,595);
+  tb.remove();
+  ask("PDF je připraveno k uložení.","Uložit PDF",function(){saveFile("plan-natoceni-"+today()+".pdf",pdf,"application/pdf")},false,"Zavřít");
+ }catch(e){tb.remove();toast("PDF se nepodařilo vytvořit.",3500)}
+}
+document.getElementById("skfile").addEventListener("change",function(e){var f=e.target.files[0];e.target.value="";if(!f||SK.i<0)return;shrink(f,function(d){var im=new Image();im.onload=function(){var cv=document.getElementById("skcv"),r=Math.min(cv.width/im.width,cv.height/im.height),w=im.width*r,h=im.height*r;SK.strokes.push({t:"img",im:im,x:(cv.width-w)/2,y:(cv.height-h)/2,w:w,h:h});skRedraw()};im.src=d})});
 function itemRow(s,i,t){
  var P=["Příprava","Stěhování","Oběd","Přestávka","Převlek","Svačina"];
  return '<div class="row item'+(s.done?' done':'')+'" data-i="'+i+'"><div class="time"><span class="no">Položka</span>'+
@@ -567,6 +668,7 @@ document.getElementById("ld").addEventListener("click",function(){document.getEl
 document.getElementById("imp").addEventListener("change",function(e){var f=e.target.files[0];e.target.value="";if(f)restorePlan(f)});
 document.getElementById("prt").addEventListener("click",function(){window.print()});
 document.getElementById("qt").addEventListener("click",quitApp);
+document.getElementById("pdf").addEventListener("click",function(){makePdf()});
 var PP=document.getElementById("pospanel");
 PP.addEventListener("click",function(e){if(e.target===PP){S.posOpen=false;openSw=null;save();renderPanel();return}var b=e.target.closest("[data-act]");if(!b)return;var a=b.dataset.act;
  if(a==="postoggle"){S.posOpen=false;openSw=null;save();renderPanel();return}
