@@ -27,7 +27,7 @@ h1{font:700 26px/1 "Barlow Condensed",Arial Narrow,sans-serif;letter-spacing:.02
 .hd .big{font:700 22px/1 "Barlow Condensed",Arial Narrow,sans-serif;font-variant-numeric:tabular-nums}
 header input[type=time]{background:transparent;color:inherit;border:1px solid rgba(128,128,128,.5);border-radius:8px;padding:6px 8px;font:600 18px "Barlow Condensed",Arial Narrow,sans-serif}
 main{max-width:1280px;margin:0 auto;padding:16px 16px 120px}
-.row{display:grid;grid-template-columns:170px minmax(240px,31%) minmax(250px,320px) 1fr auto;gap:16px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc);border-radius:10px;padding:14px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:170px minmax(216px,28%) minmax(212px,272px) 1fr auto;gap:16px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc);border-radius:10px;padding:14px;margin-bottom:12px}
 .time{display:flex;flex-direction:column;justify-content:center;gap:6px}
 .time .no{font-size:13px;color:var(--mute);font-weight:600}
 .time input{width:100%;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:700 30px/1.05 "Barlow Condensed",Arial Narrow,sans-serif;font-variant-numeric:tabular-nums}
@@ -202,6 +202,33 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 .row:not(.item) .time input[data-f="a"]{justify-self:end}
 .row:not(.item) .time input[data-f="b"]{justify-self:start}
 .row:not(.item) .time .durf{font-size:13px;gap:5px}
+.pic{aspect-ratio:16/12.5}
+.cam .camnote{margin-top:auto;flex:0 0 auto;width:100%;background:rgba(128,128,128,.22);border:0;border-radius:6px;padding:6px 8px;font:500 14px Barlow,Arial,sans-serif;color:inherit}
+.cam .camnote::placeholder{color:inherit;opacity:.55}
+.cimg img{object-fit:cover}
+.ci{position:relative;display:block;flex:1 1 0;min-height:90px}
+.cimg{position:absolute;inset:0;width:100%;height:100%;min-height:0;display:flex;align-items:center;justify-content:center}
+.cimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cx{z-index:2}
+.skrow{display:flex;align-items:flex-start;gap:8px}
+.skbtn{border:1px dashed var(--line);background:var(--field);border-radius:8px;padding:8px 12px;font:600 15px Barlow,Arial,sans-serif;min-height:40px}
+.skth{flex:0 1 220px;border:1px solid var(--line);border-radius:8px;padding:0;background:#fff;overflow:hidden;aspect-ratio:3/2}
+.skth img{width:100%;height:100%;object-fit:contain;display:block}
+.skx{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--field);font-size:13px;padding:0;flex:0 0 auto}
+.skov{display:none;position:fixed;inset:0;z-index:45;background:#2b2f36;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.skov.on{display:flex}
+.skbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;background:#12161c;color:#fff}
+.skbar button{min-height:44px;min-width:44px;border-radius:10px;border:3px solid transparent;background:#2b2f36;color:#fff;font:600 16px Barlow,Arial,sans-serif;padding:0 12px}
+.skbar .skc{width:44px;padding:0;border-radius:50%;border:3px solid #555}
+.skbar button.on{border-color:var(--acc)}
+.skbar .skw{display:flex;align-items:center;justify-content:center}
+.skw i{display:block;width:26px;background:#fff;border-radius:3px}
+.sks{width:1px;height:30px;background:#555}
+.skfill{flex:1}
+.skbar .skok{background:var(--acc);color:#12161c;border-color:var(--acc)}
+.skwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px}
+#skcv{background:#fff;max-width:100%;max-height:100%;min-width:0;min-height:0;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;box-shadow:0 4px 20px rgba(0,0,0,.5);border-radius:4px}
+@media print{.skbtn,.skx,.skov{display:none!important}}
 .row:not(.item) .time .durf input{box-sizing:border-box;width:54px;height:26px;font-size:15px;padding:1px 3px;text-align:center;background:#dfe2e7;color:#12161c;border-radius:6px}
 .sunrow{display:flex;align-items:center;gap:8px}
 .sunrow label{width:42px}
@@ -273,6 +300,14 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 <main id="list"></main>
 <div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="exp">Uložit k tisku</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
+<div class="skov" id="skov" role="dialog" aria-modal="true" aria-label="Kresba"><div class="skbar">
+<button class="skc" data-c="#12161c" style="background:#12161c" aria-label="Černá"></button><button class="skc" data-c="#d9433b" style="background:#d9433b" aria-label="Červená"></button><button class="skc" data-c="#2f6fca" style="background:#2f6fca" aria-label="Modrá"></button><button class="skc" data-c="#3aa655" style="background:#3aa655" aria-label="Zelená"></button><button class="skc" data-c="#f08a24" style="background:#f08a24" aria-label="Oranžová"></button>
+<span class="sks"></span>
+<button class="skw" data-w="2" aria-label="Tenká"><i style="height:2px"></i></button><button class="skw" data-w="5" aria-label="Střední"><i style="height:5px"></i></button><button class="skw" data-w="10" aria-label="Tlustá"><i style="height:10px"></i></button>
+<span class="sks"></span>
+<button id="skpen">Tužka</button><button id="skera">Guma</button><button id="skundo">Zpět</button><button id="skclr">Smazat vše</button>
+<span class="skfill"></span><button id="skcancel">Zrušit</button><button id="sksave" class="skok">Hotovo</button></div>
+<div class="skwrap"><canvas id="skcv" width="1500" height="1000"></canvas></div></div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
 <input type="file" id="file" accept="image/*" hidden>
 <script>
@@ -322,7 +357,7 @@ function posColor(s){var c=S.pos&&s.cam?S.pos[s.cam]:null;if(!c)return null;for(
 function camBox(s){var c=posColor(s),o='<option value="">–</option>';for(var n=1;n<=15;n++)o+='<option value="'+n+'"'+(String(s.cam)===String(n)?' selected':'')+'>'+esc(posLabel(n))+'</option>';
  var ex='';if(s.cam){var im=S.posImg&&S.posImg[s.cam],nm=S.posName&&S.posName[s.cam]||'';ex='<div class="ci"><button class="cimg" data-act="camimg" aria-label="Obrázek pozice">'+(im?'<img src="'+im+'" alt="">':'+ obrázek')+'</button>'+(im?'<button class="cx" data-act="camimgdel" aria-label="Odebrat obrázek">✕</button>':'')+'</div>'}
  var sw='';if(s.cam){sw=''}
- return '<div class="cam"'+(c?' style="background:'+c[1]+';color:'+c[2]+';border-color:transparent"':'')+'><div class="camsel"><div class="camname'+(s.cam?'':' ph')+'">'+(s.cam?esc(posLabel(+s.cam)):'Vyber pozici kamery')+'</div><select data-f="cam" aria-label="Pozice kamery">'+o+'</select></div>'+ex+'</div>'}
+ return '<div class="cam"'+(c?' style="background:'+c[1]+';color:'+c[2]+';border-color:transparent"':'')+'><div class="camsel"><div class="camname'+(s.cam?'':' ph')+'">'+(s.cam?esc(posLabel(+s.cam)):'Vyber pozici kamery')+'</div><select data-f="cam" aria-label="Pozice kamery">'+o+'</select></div>'+ex+'<input class="camnote" data-f="camnote" placeholder="Poznámka ke kameře" value="'+esc(s.camnote||"")+'" maxlength="120"></div>'}
 function pad2(n){return String(n).padStart(2,"0")}
 function fmtHM(ms){var d=new Date(ms);return pad2(d.getHours())+":"+pad2(d.getMinutes())}
 function tick(){
@@ -356,6 +391,39 @@ function renderPanel(){
  el.className="posw"+(open?" on":"");el.innerHTML=open?'<div class="posbox"><div class="posbar"><b>Pozice kamery</b><span class="hint">Napiš popis za písmeno a vyber barvu</span><button class="posbtn" data-act="postoggle">Zavřít</button></div>'+g+'</div>':'';
 }
 function wrapRows(h){var parts=h.split('<div class="row');if(parts.length<2)return h;return parts[0]+parts.slice(1).map(function(s){return '<div class="rw"><div class="row'+s+'</div>'}).join("")}
+var SK={i:-1,strokes:[],color:"#12161c",w:5,era:false,cur:null,penSeen:false,base:null,loading:false};
+function skBox(s){return '<div class="skrow">'+(s.sketch?'<button class="skth" data-act="sk" aria-label="Upravit kresbu"><img src="'+s.sketch+'" alt=""></button><button class="skx" data-act="skdel" aria-label="Smazat kresbu">\u2715</button>':'<button class="skbtn" data-act="sk">\u270e Kresba tužkou</button>')+'</div>'}
+function skCtx(){return document.getElementById("skcv").getContext("2d")}
+function skW(st,p){return st.w*(st.era?5:1)*(st.pen?(0.4+(p||0.5)*1.2):1)}
+function skSeg(c,st,a,b){c.strokeStyle=st.era?"#fff":st.c;c.lineCap="round";c.lineJoin="round";c.lineWidth=skW(st,b[2]);c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke()}
+function skDraw(c,st){var p=st.pts;if(p.length===1){c.fillStyle=st.era?"#fff":st.c;c.beginPath();c.arc(p[0][0],p[0][1],skW(st,p[0][2])/2,0,6.2832);c.fill();return}for(var i=1;i<p.length;i++)skSeg(c,st,p[i-1],p[i])}
+function skRedraw(){var cv=document.getElementById("skcv"),c=skCtx();c.fillStyle="#fff";c.fillRect(0,0,cv.width,cv.height);if(SK.base)c.drawImage(SK.base,0,0,cv.width,cv.height);SK.strokes.forEach(function(st){skDraw(c,st)})}
+function skSync(){var ov=document.getElementById("skov");ov.querySelectorAll(".skc").forEach(function(b){b.classList.toggle("on",!SK.era&&b.dataset.c===SK.color)});ov.querySelectorAll(".skw").forEach(function(b){b.classList.toggle("on",+b.dataset.w===SK.w)});document.getElementById("skpen").classList.toggle("on",!SK.era);document.getElementById("skera").classList.toggle("on",SK.era)}
+function openSketch(i){var s=S.shots[i];SK.i=i;SK.strokes=[];SK.base=null;SK.era=false;SK.cur=null;SK.loading=false;
+ var cv=document.getElementById("skcv");cv.width=1500;cv.height=1000;
+ document.getElementById("skov").classList.add("on");skSync();skRedraw();
+ if(s.sketch){SK.loading=true;var im=new Image();im.onload=function(){SK.base=im;SK.loading=false;skRedraw()};im.onerror=function(){SK.loading=false};im.src=s.sketch}
+}
+function closeSk(){document.getElementById("skov").classList.remove("on");SK.cur=null;SK.i=-1}
+function saveSk(){if(SK.loading){return}var s=S.shots[SK.i];if(s){if(SK.strokes.length||SK.base)s.sketch=document.getElementById("skcv").toDataURL("image/png");else delete s.sketch;save();render()}closeSk()}
+(function(){
+ var cv=document.getElementById("skcv"),ov=document.getElementById("skov");
+ function pt(e){var r=cv.getBoundingClientRect();return [(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height,e.pointerType==="pen"?e.pressure:0.5]}
+ cv.addEventListener("pointerdown",function(e){if(e.pointerType==="pen")SK.penSeen=true;else if(SK.penSeen)return;e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(x){}SK.cur={c:SK.color,w:SK.w,era:SK.era,pen:e.pointerType==="pen",pts:[pt(e)],id:e.pointerId};SK.strokes.push(SK.cur);skDraw(skCtx(),SK.cur)});
+ cv.addEventListener("pointermove",function(e){if(!SK.cur||e.pointerId!==SK.cur.id)return;e.preventDefault();var evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];if(!evs.length)evs=[e];var c=skCtx();evs.forEach(function(ev){var a=SK.cur.pts[SK.cur.pts.length-1],b=pt(ev);SK.cur.pts.push(b);skSeg(c,SK.cur,a,b)})});
+ function end(e){if(SK.cur&&e.pointerId===SK.cur.id)SK.cur=null}
+ cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+ ov.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+  if(b.dataset.c){SK.color=b.dataset.c;SK.era=false}
+  else if(b.dataset.w){SK.w=+b.dataset.w}
+  else if(b.id==="skpen"){SK.era=false}
+  else if(b.id==="skera"){SK.era=true}
+  else if(b.id==="skundo"){SK.strokes.pop();skRedraw()}
+  else if(b.id==="skclr"){ask("Smazat celou kresbu?","Smazat",function(){SK.strokes=[];SK.base=null;skRedraw()},true);return}
+  else if(b.id==="skcancel"){if(SK.strokes.length)ask("Zahodit kresbu bez uložení?","Zahodit",closeSk,true);else closeSk();return}
+  else if(b.id==="sksave"){saveSk();return}
+  skSync()});
+})();
 function itemRow(s,i,t){
  var P=["Příprava","Stěhování","Oběd","Přestávka","Převlek","Svačina"];
  return '<div class="row item'+(s.done?' done':'')+'" data-i="'+i+'"><div class="time"><span class="no">Položka</span>'+
@@ -384,7 +452,7 @@ function render(){
   '<button class="donebtn'+(s.done?' on':'')+'" data-act="done" aria-pressed="'+(s.done?'true':'false')+'">'+(s.done?'NATOČENO!'+(s.doneAt?'<small>v '+fmtHM(s.doneAt)+'</small>':''):'☐ Natočeno')+'</button></div>'+
   '<button class="pic" data-act="img">'+(s.img?'<img src="'+s.img+'" alt="">':'Klepni a vyber obrázek ze storyboardu')+'</button>'+
   camBox(s)+
-  '<div class="txt"><div class="frow">'+swatches(s)+'<input data-f="title" placeholder="Název záběru" value="'+esc(s.title)+'"'+colStyle(s)+'></div><textarea data-f="note" placeholder="Poznámky: lokace, herci, technika">'+esc(s.note)+'</textarea>'+
+  '<div class="txt"><div class="frow">'+swatches(s)+'<input data-f="title" placeholder="Název záběru" value="'+esc(s.title)+'"'+colStyle(s)+'></div><textarea data-f="note" placeholder="Poznámky: lokace, herci, technika">'+esc(s.note)+'</textarea>'+skBox(s)+
   '</div>'+
   '<div class="act"><button class="ib" data-act="up" aria-label="Posunout nahoru"'+(i?'':' disabled')+'>↑</button><button class="ib" data-act="down" aria-label="Posunout dolů"'+(i<S.shots.length-1?'':' disabled')+'>↓</button><button class="ib del" data-act="del" aria-label="Smazat záběr">✕</button></div></div>';
  });
@@ -403,6 +471,8 @@ L.addEventListener("click",function(e){
  if(a==="camimg"){var sq=S.shots[i];if(sq.cam){pick=i;pickPos=sq.cam;document.getElementById("file").click()}return}
  if(a==="camimgdel"){var sc=S.shots[i];if(sc.cam&&S.posImg){delete S.posImg[sc.cam];save();render()}return}
  if(a==="poscolor"){openSw=null;var sp=S.shots[i];if(sp.cam){S.pos=S.pos||{};if(b.dataset.v)S.pos[sp.cam]=b.dataset.v;else delete S.pos[sp.cam];save();render()}return}
+ if(a==="sk"){openSketch(i);return}
+ if(a==="skdel"){var sid=S.shots[i].id;ask("Smazat kresbu?","Smazat",function(){var k=S.shots.findIndex(function(s){return s.id===sid});if(k>-1){delete S.shots[k].sketch;save();render()}},true);return}
  if(a==="swtoggle"){var kk=b.dataset.k;openSw=(openSw===kk)?null:kk;render();return}
  if(a==="color"){openSw=null;S.shots[i].color=b.dataset.v;save();render();return}
  if(a==="chip"){S.shots[i].title=b.dataset.v;save();render();return}
@@ -456,7 +526,7 @@ function buildPrint(){
   if(s.type==="item"){rows+='<tr class="it"><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td colspan="5">'+esc(s.title||"Položka")+(s.done?' ✓':'')+'</td></tr>';return}
   n++;
   var ci=colorInfo(s.color),pc=s.cam&&S.pos?colorInfo(S.pos[s.cam]):null,pim=s.cam&&S.posImg?S.posImg[s.cam]:"";
-  rows+='<tr><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td class="im">'+(s.img?'<img src="'+s.img+'" alt="">':'')+'</td><td'+(ci?' style="background:'+ci[1]+';color:'+ci[2]+'"':'')+'><b>'+n+'.</b> '+esc(s.title)+'</td><td'+(pc?' style="background:'+pc[1]+';color:'+pc[2]+'"':'')+'>'+(s.cam?esc(posLabel(+s.cam)):'')+(pim?'<br><img class="pi" src="'+pim+'" alt="">':'')+'</td><td>'+esc(s.note).replace(/\n/g,'<br>')+'</td><td class="st">'+(s.done?'NATOČENO'+(s.doneAt?'<small>'+fmtHM(s.doneAt)+'</small>':''):'')+'</td></tr>';
+  rows+='<tr><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td class="im">'+(s.img?'<img src="'+s.img+'" alt="">':'')+'</td><td'+(ci?' style="background:'+ci[1]+';color:'+ci[2]+'"':'')+'><b>'+n+'.</b> '+esc(s.title)+'</td><td'+(pc?' style="background:'+pc[1]+';color:'+pc[2]+'"':'')+'>'+(s.cam?esc(posLabel(+s.cam)):'')+(pim?'<br><img class="pi" src="'+pim+'" alt="">':'')+(s.camnote?'<br><i>'+esc(s.camnote)+'</i>':'')+'</td><td>'+esc(s.note).replace(/\n/g,'<br>')+(s.sketch?'<br><img style="width:220px;border:1px solid #bbb;margin-top:4px" src="'+s.sketch+'" alt="">':'')+'</td><td class="st">'+(s.done?'NATOČENO'+(s.doneAt?'<small>'+fmtHM(s.doneAt)+'</small>':''):'')+'</td></tr>';
  });
  return '<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(nm)+'</title><style>'+css+'</style></head><body><h1>'+esc(nm)+'</h1><div class="meta"><span>'+esc(ds)+'</span><span>'+esc(loc)+'</span><span>Směna '+S.dayStart+' – '+g("end")+'</span><span>Východ '+g("sr")+' · Západ '+g("ss")+'</span><span>Celkem '+g("tot")+'</span></div><table><thead><tr><th>Čas</th><th>Storyboard</th><th>Záběr</th><th>Kamera</th><th>Poznámky</th><th>Stav</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>';
 }
