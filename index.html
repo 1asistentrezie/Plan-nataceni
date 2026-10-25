@@ -27,7 +27,7 @@ h1{font:700 26px/1 "Barlow Condensed",Arial Narrow,sans-serif;letter-spacing:.02
 .hd .big{font:700 22px/1 "Barlow Condensed",Arial Narrow,sans-serif;font-variant-numeric:tabular-nums}
 header input[type=time]{background:transparent;color:inherit;border:1px solid rgba(128,128,128,.5);border-radius:8px;padding:6px 8px;font:600 18px "Barlow Condensed",Arial Narrow,sans-serif}
 main{max-width:1280px;margin:0 auto;padding:16px 16px 120px}
-.row{display:grid;grid-template-columns:170px minmax(200px,26%) minmax(250px,320px) 1fr auto;gap:16px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc);border-radius:10px;padding:14px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:170px minmax(240px,31%) minmax(250px,320px) 1fr auto;gap:16px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--acc);border-radius:10px;padding:14px;margin-bottom:12px}
 .time{display:flex;flex-direction:column;justify-content:center;gap:6px}
 .time .no{font-size:13px;color:var(--mute);font-weight:600}
 .time input{width:100%;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:700 30px/1.05 "Barlow Condensed",Arial Narrow,sans-serif;font-variant-numeric:tabular-nums}
@@ -198,6 +198,11 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 .row:not(.item) .time>.durf,.row:not(.item) .time>.donebtn,.row:not(.item) .time>.no{margin-top:2px}
 .row:not(.item) .time input[type=time]{font-size:20px;padding:3px 4px}
 .dsh{text-align:center;font-weight:700;font-size:16px;color:var(--mute);line-height:1}
+.row:not(.item) .time input[type=time]{box-sizing:border-box;width:68px;height:28px;font-size:17px;padding:1px 3px;border-radius:6px;text-align:center}
+.row:not(.item) .time input[data-f="a"]{justify-self:end}
+.row:not(.item) .time input[data-f="b"]{justify-self:start}
+.row:not(.item) .time .durf{font-size:13px;gap:5px}
+.row:not(.item) .time .durf input{box-sizing:border-box;width:54px;height:26px;font-size:15px;padding:1px 3px;text-align:center;background:#dfe2e7;color:#12161c;border-radius:6px}
 .sunrow{display:flex;align-items:center;gap:8px}
 .sunrow label{width:42px}
 #sr,#ss{min-width:58px;text-align:center}
@@ -224,7 +229,7 @@ header .sumbox .big{font-size:15px;line-height:1.2;text-align:left}
 .sw1{position:relative;display:inline-block;align-self:flex-start}
 .sq{width:30px;height:30px;border-radius:8px;border:2px solid rgba(128,128,128,.6);padding:0;background:var(--field);color:var(--mute);font-size:14px;line-height:1}
 .sq.empty{background:transparent;color:inherit}
-.pal{position:absolute;z-index:8;top:calc(100% + 6px);left:0;display:flex;flex-wrap:wrap;gap:8px;width:max-content;max-width:300px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.pal{position:absolute;z-index:8;top:calc(100% + 6px);left:0;display:flex;flex-wrap:wrap;gap:8px;width:max-content;max-width:340px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .pal button{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);padding:0}
 .pal button.on{outline:3px solid var(--ink);outline-offset:2px}
 .pal .nc{background:var(--field);color:var(--mute);font-size:14px;line-height:1}
@@ -309,7 +314,7 @@ function sunUI(){
  if(a!=null&&b!=null){var base=Date.UTC(y,m-1,d);sr=pragueT(base+a*36e5);ss=pragueT(base+b*36e5);dl=fmt(Math.round((b-a)*60))}}catch(e){}
  document.getElementById("sr").textContent=sr;document.getElementById("ss").textContent=ss;document.getElementById("dl").textContent=dl;
 }
-var COLS=[["Červená","#d9433b","#fff"],["Oranžová","#f08a24","#12161c"],["Žlutá","#f2cf2e","#12161c"],["Zelená","#3aa655","#12161c"],["Modrá","#2f6fca","#fff"],["Fialová","#8e5bd0","#fff"],["Růžová","#ec6fa8","#12161c"],["Šedá","#9aa3b0","#12161c"],["Tyrkysová","#1fb5ad","#12161c"],["Světle modrá","#4fb3f0","#12161c"],["Limetková","#a4d233","#12161c"],["Hnědá","#8a5a3c","#fff"],["Bordó","#8c1d40","#fff"],["Tmavě modrá","#1f3a68","#fff"],["Tmavě zelená","#1e6b46","#fff"]];
+var COLS=[["Červená","#d9433b","#fff"],["Oranžová","#f08a24","#12161c"],["Žlutá","#f2cf2e","#12161c"],["Zelená","#3aa655","#12161c"],["Modrá","#2f6fca","#fff"],["Fialová","#8e5bd0","#fff"],["Růžová","#ec6fa8","#12161c"],["Šedá","#9aa3b0","#12161c"],["Tyrkysová","#1fb5ad","#12161c"],["Světle modrá","#4fb3f0","#12161c"],["Limetková","#a4d233","#12161c"],["Hnědá","#8a5a3c","#fff"],["Bordó","#8c1d40","#fff"],["Tmavě modrá","#1f3a68","#fff"],["Tmavě zelená","#1e6b46","#fff"],["Korálová","#f26b5b","#12161c"],["Broskvová","#f7b27c","#12161c"],["Světle růžová","#f6a6c9","#12161c"],["Levandulová","#b9a2ee","#12161c"],["Indigo","#4a4fd1","#fff"],["Mátová","#7fdcc0","#12161c"],["Světle zelená","#a6dd9b","#12161c"],["Olivová","#7a8b2d","#fff"],["Béžová","#e0cfa0","#12161c"]];
 function colStyle(s){for(var i=0;i<COLS.length;i++)if(COLS[i][1]===s.color)return ' style="background:'+COLS[i][1]+';color:'+COLS[i][2]+';border-radius:8px;border-bottom-color:transparent;padding:8px 10px"';return ''}
 function palette(cur,act,key){var o=openSw===key;return '<div class="sw1"><button class="sq'+(cur?'':' empty')+'" style="'+(cur?'background:'+cur:'')+'" data-act="swtoggle" data-k="'+key+'" aria-label="Barva" aria-expanded="'+(o?'true':'false')+'">'+(cur?'':'▾')+'</button>'+(o?'<div class="pal"><button class="nc" data-act="'+act+'" data-v="" aria-label="Bez barvy">✕</button>'+COLS.map(function(c){return '<button class="'+(cur===c[1]?'on':'')+'" style="background:'+c[1]+'" data-act="'+act+'" data-v="'+c[1]+'" aria-label="'+c[0]+'"></button>'}).join("")+'</div>':'')+'</div>'}
 function swatches(s){return palette(s.color,"color","t"+s.id)}
