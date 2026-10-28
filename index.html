@@ -273,7 +273,7 @@ header input#loc::placeholder{color:inherit;opacity:.5}
 .skrow{display:flex;align-items:flex-start;gap:8px}
 .skbtn{border:1px dashed var(--line);background:var(--field);border-radius:8px;padding:8px 12px;font:600 15px Barlow,Arial,sans-serif;min-height:40px}
 .skth{flex:0 1 220px;border:1px solid var(--line);border-radius:8px;padding:0;background:#fff;overflow:hidden;aspect-ratio:3/2}
-.skth img{width:100%;height:100%;object-fit:contain;display:block}
+.skth img{width:100%;height:100%;object-fit:contain;display:block;transform-origin:center center}
 .skx{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--field);font-size:13px;padding:0;flex:0 0 auto}
 .skov{display:none;position:fixed;inset:0;z-index:45;background:#2b2f36;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
 .skov.on{display:flex}
@@ -346,6 +346,15 @@ header input#loc::placeholder{color:inherit;opacity:.5}
 .shcol{display:flex!important;flex-direction:column!important;align-items:stretch;gap:3px!important}
 .shrow{display:flex!important;gap:0!important}
 #tst label{display:none}
+.lbov{display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.88);flex-direction:column}
+.lbov.on{display:flex}
+.lbbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#12161c}
+.lbbar button{min-height:44px;min-width:44px;border-radius:10px;border:0;background:#2b2f36;color:#fff;font:700 20px Barlow,Arial,sans-serif;padding:0 12px}
+.lbbar input{flex:1;min-width:80px}
+.lbbar .lbc{background:var(--acc);color:#12161c;font-size:16px}
+.lbsc{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:12px;display:flex}
+.lbsc img{display:block;margin:auto;background:#fff;max-width:none;flex:0 0 auto}
+@media print{.lbov{display:none!important}}
 .donebtn.on.g{background:#17803f;border-color:#17803f;color:#fff;font-size:24px!important}
 .row.item .donebtn.on.g{font-size:16px!important}
 .donebtn.on.y{background:#f5b400;border-color:#f5b400;color:#12161c;font-size:22px!important}
@@ -415,6 +424,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <main id="list"></main>
 <div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button><button class="mi" id="pdfpos">Export pozic kamery (PDF)</button><button class="mi" id="pdf">Uložit jako PDF</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
+<div class="lbov" id="lbov" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek"><div class="lbbar"><button id="lbm" aria-label="Zmenšit">−</button><input type="range" id="lbr" min="50" max="400" value="100" aria-label="Zvětšení"><button id="lbp" aria-label="Zvětšit">+</button><button id="lbx" class="lbc">Zavřít</button></div><div class="lbsc" id="lbsc"><img id="lbimg" alt=""></div></div>
 <div class="vzov" id="vzov" role="dialog" aria-modal="true" aria-label="Výřez obrázku"><div class="vzbox"><div class="vzframe" id="vzframe"><img id="vzimg" alt="" draggable="false"></div>
 <div class="vzctl"><button id="vzm" aria-label="Zmenšit">−</button><input type="range" id="vzr" min="100" max="400" value="100" aria-label="Zvětšení"><button id="vzp" aria-label="Zvětšit">+</button></div>
 <p class="vzhint">Obrázek přetáhni prstem nebo tužkou, zvětšení nastav posuvníkem.</p>
@@ -526,16 +536,16 @@ function renderPanel(){
 function wrapRows(h){var parts=h.split('<div class="row');if(parts.length<2)return h;return parts[0]+parts.slice(1).map(function(s){return '<div class="rw"><div class="row'+s+'</div>'}).join("")}
 var VZ={kind:null,i:-1,z:1,x:0,y:0,fit:"contain"};
 function vstyle(v){return v?' style="transform:translate('+v.x+'%,'+v.y+'%) scale('+v.z+')"':''}
-function vget(kind,s){return kind==="pos"?(S.posView&&S.posView[s.cam]):s.imgView}
+function vget(kind,s){return kind==="pos"?(S.posView&&S.posView[s.cam]):kind==="sk"?s.skView:s.imgView}
 function vapply(){var im=document.getElementById("vzimg");im.style.transform="translate("+VZ.x+"%,"+VZ.y+"%) scale("+VZ.z+")";document.getElementById("vzr").value=Math.round(VZ.z*100)}
-function openView(kind,i,el){var s=S.shots[i],src=kind==="pos"?(S.posImg&&S.posImg[s.cam]):s.img;if(!src)return;
+function openView(kind,i,el){var s=S.shots[i],src=kind==="pos"?(S.posImg&&S.posImg[s.cam]):kind==="sk"?s.sketch:s.img;if(!src)return;
  var box=el.getBoundingClientRect(),w=Math.max(120,box.width),h=Math.max(80,box.height),mw=Math.min(window.innerWidth*0.94-32,688),mh=window.innerHeight*0.5,k=Math.min(mw/w,mh/h),fr=document.getElementById("vzframe");
  fr.style.width=Math.round(w*k)+"px";fr.style.height=Math.round(h*k)+"px";
  var im=document.getElementById("vzimg");im.src=src;im.style.objectFit=kind==="pos"?"cover":"contain";
  var v=vget(kind,s)||{z:1,x:0,y:0};VZ.kind=kind;VZ.i=i;VZ.z=v.z;VZ.x=v.x;VZ.y=v.y;vapply();document.getElementById("vzov").classList.add("on")}
 function vclose(){document.getElementById("vzov").classList.remove("on");VZ.kind=null}
 function vsave(){var s=S.shots[VZ.i];if(s){var v=(VZ.z<=1.001&&Math.abs(VZ.x)<0.5&&Math.abs(VZ.y)<0.5)?null:{z:Math.round(VZ.z*100)/100,x:Math.round(VZ.x*10)/10,y:Math.round(VZ.y*10)/10};
- if(VZ.kind==="pos"){if(s.cam){S.posView=S.posView||{};if(v)S.posView[s.cam]=v;else delete S.posView[s.cam]}}else{if(v)s.imgView=v;else delete s.imgView}save();render()}vclose()}
+ if(VZ.kind==="pos"){if(s.cam){S.posView=S.posView||{};if(v)S.posView[s.cam]=v;else delete S.posView[s.cam]}}else if(VZ.kind==="sk"){if(v)s.skView=v;else delete s.skView}else{if(v)s.imgView=v;else delete s.imgView}save();render()}vclose()}
 (function(){var fr=document.getElementById("vzframe"),d=null;
  fr.addEventListener("pointerdown",function(e){e.preventDefault();try{fr.setPointerCapture(e.pointerId)}catch(x){}d={px:e.clientX,py:e.clientY,x:VZ.x,y:VZ.y}});
  fr.addEventListener("pointermove",function(e){if(!d)return;var r=fr.getBoundingClientRect();VZ.x=d.x+(e.clientX-d.px)/r.width*100;VZ.y=d.y+(e.clientY-d.py)/r.height*100;vlimit();vapply()});
@@ -550,7 +560,7 @@ function vsave(){var s=S.shots[VZ.i];if(s){var v=(VZ.z<=1.001&&Math.abs(VZ.x)<0.
  document.getElementById("vzok").addEventListener("click",vsave);
 })();
 var SK={i:-1,strokes:[],color:"#12161c",w:5,era:false,cur:null,penSeen:false,base:null,loading:false};
-function skBox(s){return '<div class="skrow">'+(s.sketch?'<button class="skth" data-act="sk" aria-label="Upravit kresbu"><img src="'+s.sketch+'" alt=""></button><button class="skx" data-act="skdel" aria-label="Smazat kresbu">\u2715</button>':'<button class="skbtn" data-act="sk">\u270e Kresba tužkou</button>')+'</div>'}
+function skBox(s){return '<div class="skrow">'+(s.sketch?'<button class="skth" data-act="sk" aria-label="Upravit kresbu"><img src="'+s.sketch+'"'+vstyle(s.skView)+' alt=""></button><button class="skx" data-act="skzoom" aria-label="Výřez a zvětšení" title="Výřez a zvětšení">\u2922</button><button class="skx" data-act="skdel" aria-label="Smazat kresbu">\u2715</button>':'<button class="skbtn" data-act="sk">\u270e Kresba tužkou</button>')+'</div>'}
 function skCtx(){return document.getElementById("skcv").getContext("2d")}
 function skW(st,p){return st.w*(st.era?5:1)*(st.pen?(0.4+(p||0.5)*1.2):1)}
 function skSeg(c,st,a,b){c.strokeStyle=st.era?"#fff":st.c;c.lineCap="round";c.lineJoin="round";c.lineWidth=skW(st,b[2]);c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke()}
@@ -710,7 +720,7 @@ async function makePdf(){
     c.fillStyle=cf;c.font="500 18px "+PFF;r.cn.forEach(function(l){c.fillText(l,X[3]+12,cy);cy+=24});
     if(r.pim){var ph2=Math.max(60,y+h-12-cy);var pw2=COLW[3]-24,pv=(S.posView&&S.posView[s.cam])||{z:1,x:0,y:0};c.save();c.beginPath();c.rect(X[3]+12,cy+4,pw2,ph2-4);c.clip();c.translate(X[3]+12+pw2/2+pv.x/100*pw2,cy+4+(ph2-4)/2+pv.y/100*(ph2-4));c.scale(pv.z,pv.z);pdfCover(c,r.pim,-pw2/2,-(ph2-4)/2,pw2,ph2-4);c.restore()}
     c.fillStyle="#12161c";c.font="500 20px "+PFF;var ny=y+12;r.nl.forEach(function(l){c.fillText(l,X[4]+12,ny);ny+=26});
-    if(r.sk){c.drawImage(r.sk,X[4]+12,ny+4,r.f2[0],r.f2[1]);c.strokeStyle="#bbb";c.strokeRect(X[4]+12,ny+4,r.f2[0],r.f2[1])}
+    if(r.sk){var v2=s.skView||{z:1,x:0,y:0};c.save();c.beginPath();c.rect(X[4]+12,ny+4,r.f2[0],r.f2[1]);c.clip();c.translate(X[4]+12+r.f2[0]/2+v2.x/100*r.f2[0],ny+4+r.f2[1]/2+v2.y/100*r.f2[1]);c.scale(v2.z,v2.z);c.drawImage(r.sk,-r.f2[0]/2,-r.f2[1]/2,r.f2[0],r.f2[1]);c.restore();c.strokeStyle="#bbb";c.strokeRect(X[4]+12,ny+4,r.f2[0],r.f2[1])}
     if(s.done){c.fillStyle="#17803f";c.fillRect(X[5]+8,y+8,COLW[5]-16,74);c.fillStyle="#fff";c.font="700 17px "+PFF;c.textAlign="center";c.fillText("NATOČENO",X[5]+COLW[5]/2,y+22);if(s.doneAt){c.font="500 16px "+PFF;c.fillText("v "+fmtHM(s.doneAt),X[5]+COLW[5]/2,y+48)}c.textAlign="left"}
     else if(stOf(s)==="cancel"||stOf(s)==="now"){var cn=stOf(s)==="cancel";c.fillStyle=cn?"#c0392b":"#f5b400";c.fillRect(X[5]+8,y+8,COLW[5]-16,50);c.fillStyle=cn?"#fff":"#12161c";c.font="700 15px "+PFF;c.textAlign="center";c.fillText(cn?"ZRUŠENO":"PROBÍHÁ",X[5]+COLW[5]/2,y+25);c.textAlign="left"}
    }
@@ -751,6 +761,12 @@ function stBlock(s,item){
  if(st==="done"||st==="cancel")b+='<button class="sbal" data-act="coll">▴ Sbalit</button>';
  return b}
 function collBar(s,i,n,t,item){var st=stOf(s);return '<div class="row coll st-'+st+(st==="done"?' done':'')+'" data-i="'+i+'"><button class="cbar" data-act="expand">▸ <b>'+(item?'Položka':'Záběr '+n+'#')+'</b> <span>'+toT(t.a)+' – '+toT(t.b)+'</span> <span class="ct">'+esc(s.title||"")+'</span><span class="cst">'+stLabel(s,item)+'</span></button></div>'}
+function openLb(src){if(!src)return;var im=document.getElementById("lbimg");im.src=src;document.getElementById("lbr").value=100;lbSet(100);document.getElementById("lbov").classList.add("on")}
+function lbSet(v){var sc=document.getElementById("lbsc");document.getElementById("lbimg").style.width=(sc.clientWidth*v/100)+"px"}
+(function(){var r=document.getElementById("lbr");r.addEventListener("input",function(){lbSet(+r.value)});
+ document.getElementById("lbp").addEventListener("click",function(){r.value=Math.min(400,+r.value+25);lbSet(+r.value)});
+ document.getElementById("lbm").addEventListener("click",function(){r.value=Math.max(50,+r.value-25);lbSet(+r.value)});
+ document.getElementById("lbx").addEventListener("click",function(){document.getElementById("lbov").classList.remove("on")})})();
 function itemRow(s,i,t){
  if((stOf(s)==="done"||stOf(s)==="cancel")&&!EXP[s.id])return collBar(s,i,0,t,true);
  var P=["Příprava","Stěhování","Oběd","Přestávka","Převlek","Svačina"];
@@ -804,7 +820,8 @@ L.addEventListener("click",function(e){
  if(a==="campen"){openPosSketch(i);return}
  if(a==="vz"){openView("img",i,b.parentNode.querySelector(".pic"));return}
  if(a==="vzpos"){openView("pos",i,b.parentNode.querySelector(".cimg"));return}
- if(a==="skdel"){var sid=S.shots[i].id;ask("Smazat kresbu?","Smazat",function(){var k=S.shots.findIndex(function(s){return s.id===sid});if(k>-1){delete S.shots[k].sketch;save();render()}},true);return}
+ if(a==="skzoom"){openView("sk",i,b.parentNode.querySelector(".skth"));return}
+ if(a==="skdel"){var sid=S.shots[i].id;ask("Smazat kresbu?","Smazat",function(){var k=S.shots.findIndex(function(s){return s.id===sid});if(k>-1){delete S.shots[k].sketch;delete S.shots[k].skView;save();render()}},true);return}
  if(a==="swtoggle"){var kk=b.dataset.k;openSw=(openSw===kk)?null:kk;render();return}
  if(a==="color"){openSw=null;S.shots[i].color=b.dataset.v;save();render();return}
  if(a==="chip"){S.shots[i].title=b.dataset.v;save();render();return}
@@ -867,7 +884,7 @@ function printParts(){
   if(s.type==="item"){rowList.push('<tr class="it"><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td colspan="5">'+esc(s.title||"Položka")+(s.done?' ✓':'')+'</td></tr>');return}
   n++;
   var ci=colorInfo(s.color),pc=s.cam&&S.pos?colorInfo(S.pos[s.cam]):null,pim=s.cam&&S.posImg?S.posImg[s.cam]:"";
-  rowList.push('<tr><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td class="im">'+(s.img?'<div class="pvb"><img src="'+s.img+'"'+vstyle(s.imgView)+' alt=""></div>':'')+'</td><td'+(ci?' style="background:'+ci[1]+';color:'+ci[2]+'"':'')+'><b>'+n+'.</b> '+esc(s.title)+'</td><td'+(pc?' style="background:'+pc[1]+';color:'+pc[2]+'"':'')+'>'+(s.cam?esc(posLabel(+s.cam)):'')+''+(pim?'<div class="pvp"><img src="'+pim+'"'+vstyle(S.posView&&S.posView[s.cam])+' alt=""></div>':'')+'</td><td>'+esc(s.note).replace(/\n/g,'<br>')+(s.sketch?'<div class="pvs"><img src="'+s.sketch+'" alt=""></div>':'')+'</td><td class="st">'+(s.done?'NATOČENO'+(s.doneAt?'<small>'+fmtHM(s.doneAt)+'</small>':''):stOf(s)==="cancel"?'ZRUŠENO':stOf(s)==="now"?'PROBÍHÁ':'')+'</td></tr>');
+  rowList.push('<tr><td class="tm">'+t+'<small>'+s.dur+' min</small></td><td class="im">'+(s.img?'<div class="pvb"><img src="'+s.img+'"'+vstyle(s.imgView)+' alt=""></div>':'')+'</td><td'+(ci?' style="background:'+ci[1]+';color:'+ci[2]+'"':'')+'><b>'+n+'.</b> '+esc(s.title)+'</td><td'+(pc?' style="background:'+pc[1]+';color:'+pc[2]+'"':'')+'>'+(s.cam?esc(posLabel(+s.cam)):'')+''+(pim?'<div class="pvp"><img src="'+pim+'"'+vstyle(S.posView&&S.posView[s.cam])+' alt=""></div>':'')+'</td><td>'+esc(s.note).replace(/\n/g,'<br>')+(s.sketch?'<div class="pvs"><img src="'+s.sketch+'"'+vstyle(s.skView)+' alt=""></div>':'')+'</td><td class="st">'+(s.done?'NATOČENO'+(s.doneAt?'<small>'+fmtHM(s.doneAt)+'</small>':''):stOf(s)==="cancel"?'ZRUŠENO':stOf(s)==="now"?'PROBÍHÁ':'')+'</td></tr>');
  });
  var head='<h1>'+esc(nm)+'</h1><div class="meta"><span>'+esc(ds)+'</span><span>'+esc(loc)+'</span><span>Směna '+S.dayStart+' – '+g("end")+'</span><span>Východ '+g("sr")+' · Západ '+g("ss")+'</span><span>Celkem '+g("tot")+'</span></div>',thead='<tr><th style="width:150px">Čas</th><th style="width:240px">Storyboard</th><th style="width:150px">Záběr</th><th style="width:180px">Kamera</th><th>Poznámky</th><th style="width:90px">Stav</th></tr>';
  return {css:css,head:head,thead:thead,rows:rowList,nm:nm};
