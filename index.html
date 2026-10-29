@@ -4,13 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Plán natáčení">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#12161c">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<title>Plán natáčení</title>
+<title>Plán natáčení-Gambrinus</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;500;600&display=swap">
 <style>
 :root{--bg:#e9ebee;--card:#fff;--ink:#12161c;--mute:#6a7280;--line:#d3d7de;--acc:#e8b100;--accink:#12161c;--del:#c0392b;--field:#f3f4f6;color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -346,6 +341,19 @@ header input#loc::placeholder{color:inherit;opacity:.5}
 .shcol{display:flex!important;flex-direction:column!important;align-items:stretch;gap:3px!important}
 .shrow{display:flex!important;gap:0!important}
 #tst label{display:none}
+.srov{display:none;position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.55);align-items:flex-start;justify-content:center;padding:70px 16px 16px}
+.srov.on{display:flex}
+.srbox{width:100%;max-width:560px;max-height:100%;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.srbar{display:flex;gap:8px;padding:12px;border-bottom:1px solid var(--line)}
+.srbar input{flex:1;min-width:0;min-height:46px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:0 12px;font:600 18px Barlow,Arial,sans-serif}
+.srbar button{min-height:46px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:0 14px;font:700 16px Barlow,Arial,sans-serif}
+.srl{overflow:auto;padding:6px}
+.srr{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:8px;padding:10px 12px;min-height:52px;font:500 17px Barlow,Arial,sans-serif;color:var(--ink)}
+.srr:hover,.srr:active{background:var(--field)}
+.srr small{display:block;font:500 13px Barlow,Arial,sans-serif;opacity:.7;margin-top:2px}
+.srn{padding:16px;opacity:.7;text-align:center}
+.row.hit{box-shadow:0 0 0 4px #2f6fca!important;transition:box-shadow .3s}
+@media print{.srov{display:none!important}}
 .pnw{display:flex;flex-direction:column;gap:3px;flex:0 1 190px!important;min-width:120px;order:0}
 .pnw textarea.pn{flex:none!important;width:100%;min-width:0!important}
 .verb{align-self:flex-start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:0;border-radius:7px;padding:3px 10px;color:#fff;font:700 14px/1.2 Barlow,Arial,sans-serif}
@@ -418,6 +426,38 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 .shiftbox input[type=time]{width:94px!important}
 #trk{padding:6px 12px!important;font-size:28px!important;line-height:1.1!important;border-radius:12px}
 .stat{white-space:normal!important;text-align:center;line-height:1.15!important;padding:2px 8px!important;min-width:84px}
+
+.natb{order:11;background:#17803f!important;border-color:#17803f!important;color:#fff!important;font:700 20px/1 "Barlow Condensed",Arial Narrow,sans-serif!important;letter-spacing:.04em;display:flex;align-items:center;gap:8px;border-radius:10px!important}
+.natb span{background:rgba(255,255,255,.22);border-radius:999px;padding:3px 9px;font-size:17px;font-variant-numeric:tabular-nums}
+.natov{display:none;position:fixed;inset:0;z-index:62;background:rgba(0,0,0,.3)}
+.natov.on{display:block}
+.natp{position:absolute;top:0;right:0;bottom:0;width:50%;min-width:360px;max-width:100%;background:var(--card);color:var(--ink);display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.35);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);animation:natin .22s ease-out}
+@keyframes natin{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:720px){.natp{width:100%;min-width:0}}
+.nath{display:flex;align-items:center;gap:10px;padding:16px 16px 14px;background:#17803f;color:#fff}
+.nath h2{margin:0;font:700 28px/1 "Barlow Condensed",Arial Narrow,sans-serif;letter-spacing:.03em}
+.nath small{display:block;font:500 15px Barlow,Arial,sans-serif;opacity:.9;margin-top:4px}
+.nath .sp{flex:1 1 auto}
+.nath button{min-height:44px;border-radius:10px;padding:0 14px;font:600 16px Barlow,Arial,sans-serif;border:1px solid rgba(255,255,255,.6);background:transparent;color:#fff}
+.nath #natpdf{background:#fff;color:#17803f;border-color:#fff;font-weight:700}
+.dlg{z-index:68!important}
+.nath button{white-space:nowrap}
+.nath>div:first-child{min-width:0}
+.natshb{display:none;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--field);flex-wrap:wrap}
+.natshb.on{display:flex}
+.natshb button{flex:1 1 120px;min-height:52px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 16px Barlow,Arial,sans-serif;padding:6px 10px;text-align:center}
+.natshb button small{display:block;font:500 12px Barlow,Arial,sans-serif;opacity:.7;margin-top:2px}
+.natshb .pri{flex-basis:100%;background:#17803f;border-color:#17803f;color:#fff}
+.natl{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 12px 20px}
+.natr{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--field);border:1px solid var(--line);border-left:5px solid #17803f;border-radius:10px;padding:8px 12px 8px 8px;margin-bottom:8px;color:var(--ink)}
+.natth{flex:0 0 96px;height:54px;border-radius:6px;overflow:hidden;background:var(--line)}
+.natth img{width:100%;height:100%;object-fit:cover;display:block}
+.natx{flex:1 1 auto;min-width:0}
+.natx b{display:block;font:600 18px/1.2 Barlow,Arial,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.natx small{display:block;font:500 14px Barlow,Arial,sans-serif;color:var(--mute);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.natt{flex:0 0 auto;font:700 22px "Barlow Condensed",Arial Narrow,sans-serif;color:#17803f;font-variant-numeric:tabular-nums}
+.natn{padding:40px 16px;text-align:center;color:var(--mute);font-size:17px}
+@media print{.natov,.natb{display:none!important}}
 </style>
 </head>
 <body>
@@ -428,6 +468,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <button class="hb" id="mn" aria-haspopup="true" aria-label="Menu">Menu ▾</button>
 <button class="hb" id="trk" aria-pressed="false" aria-label="Sledovat čas" title="Sledovat čas">⏱</button>
 <div class="hd" id="ts" style="display:none"><label>Teď</label><span class="big" id="tn">--:--</span></div>
+<button class="hb natb" id="natb" aria-haspopup="dialog" aria-expanded="false" title="Přehled natočených záběrů">NATOČENO <span id="natc">0</span></button>
 <div class="hd" id="tst" style="display:none"><label>Stav</label><span class="stat neutral" id="tv">–</span></div>
 <div class="hrow">
 <div class="hd dl"><div class="hd"><label for="dt">Datum</label><input id="dt" type="date" aria-label="Datum"></div>
@@ -441,8 +482,9 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <div id="pv" aria-hidden="true"></div>
 <main id="list"></main>
 <div class="menu" id="vermenu" role="menu"></div>
-<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button><button class="mi" id="pdfpos">Export pozic kamery (PDF)</button><button class="mi" id="pdf">Uložit jako PDF</button></div>
+<div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="srch">Hledat záběr</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button><button class="mi" id="pdfpos">Export pozic kamery (PDF)</button><button class="mi" id="pdf">Uložit jako PDF</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
+<div class="srov" id="srov" role="dialog" aria-modal="true" aria-label="Hledat záběr"><div class="srbox"><div class="srbar"><input id="srq" type="search" placeholder="Hledat záběr podle názvu" autocomplete="off" aria-label="Hledat záběr"><button id="srx">Zavřít</button></div><div class="srl" id="srl"></div></div></div>
 <div class="lbov" id="lbov" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek"><div class="lbbar"><button id="lbm" aria-label="Zmenšit">−</button><input type="range" id="lbr" min="50" max="400" value="100" aria-label="Zvětšení"><button id="lbp" aria-label="Zvětšit">+</button><button id="lbx" class="lbc">Zavřít</button></div><div class="lbsc" id="lbsc"><img id="lbimg" alt=""></div></div>
 <div class="vzov" id="vzov" role="dialog" aria-modal="true" aria-label="Výřez obrázku"><div class="vzbox"><div class="vzframe" id="vzframe"><img id="vzimg" alt="" draggable="false"></div>
 <div class="vzctl"><button id="vzm" aria-label="Zmenšit">−</button><input type="range" id="vzr" min="100" max="400" value="100" aria-label="Zvětšení"><button id="vzp" aria-label="Zvětšit">+</button></div>
@@ -458,6 +500,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <div class="skemo" id="skemo"><button class="cm" data-e="@cam0" aria-label="Kamera na sever" title="Kamera na sever"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(0)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>S</i></button><button class="cm" data-e="@cam90" aria-label="Kamera na východ" title="Kamera na východ"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(90)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>V</i></button><button class="cm" data-e="@cam180" aria-label="Kamera na jih" title="Kamera na jih"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(180)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>J</i></button><button class="cm" data-e="@cam270" aria-label="Kamera na západ" title="Kamera na západ"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(270)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>Z</i></button><button class="dg" data-e="0">0</button><button class="dg" data-e="1">1</button><button class="dg" data-e="2">2</button><button class="dg" data-e="3">3</button><button class="dg" data-e="4">4</button><button class="dg" data-e="5">5</button><button class="dg" data-e="6">6</button><button class="dg" data-e="7">7</button><button class="dg" data-e="8">8</button><button class="dg" data-e="9">9</button><button data-e="😀">😀</button><button data-e="😂">😂</button><button data-e="😍">😍</button><button data-e="😎">😎</button><button data-e="🤔">🤔</button><button data-e="😮">😮</button><button data-e="😬">😬</button><button data-e="👍">👍</button><button data-e="👎">👎</button><button data-e="👏">👏</button><button data-e="🙌">🙌</button><button data-e="👉">👉</button><button data-e="👈">👈</button><button data-e="👆">👆</button><button data-e="👇">👇</button><button data-e="✅">✅</button><button data-e="❌">❌</button><button data-e="⚠️">⚠️</button><button data-e="❗">❗</button><button data-e="❓">❓</button><button data-e="⭐">⭐</button><button data-e="🔥">🔥</button><button data-e="💥">💥</button><button data-e="💡">💡</button><button data-e="🔦">🔦</button><button data-e="🎬">🎬</button><button data-e="🎥">🎥</button><button data-e="📷">📷</button><button data-e="🎞️">🎞️</button><button data-e="🎤">🎤</button><button data-e="🎧">🎧</button><button data-e="🔊">🔊</button><button data-e="🎭">🎭</button><button data-e="🚁">🚁</button><button data-e="🚗">🚗</button><button data-e="🚤">🚤</button><button data-e="🚶">🚶</button><button data-e="🏃">🏃</button><button data-e="👤">👤</button><button data-e="👥">👥</button><button data-e="🌧️">🌧️</button><button data-e="☀️">☀️</button><button data-e="🌙">🌙</button><button data-e="🌫️">🌫️</button><button data-e="⏱️">⏱️</button><button data-e="⏰">⏰</button><button data-e="🕯️">🕯️</button><button data-e="🪑">🪑</button><button data-e="📍">📍</button><button data-e="➡️">➡️</button><button data-e="⬅️">⬅️</button><button data-e="⬆️">⬆️</button><button data-e="⬇️">⬇️</button><button data-e="🔄">🔄</button><button data-e="↩️">↩️</button></div><input type="file" id="skfile" accept="image/*" hidden><div class="skwrap"><canvas id="skcv" width="1500" height="1000"></canvas></div></div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div id="dfw" style="display:none;margin:0 0 14px;text-align:left"><label for="dfn" style="font-size:14px;opacity:.7">Název souboru</label><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><input id="dfn" type="text" maxlength="80" autocomplete="off" style="flex:1;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:0 10px;font:600 17px Barlow,Arial,sans-serif"><span id="dfe" style="font-size:16px;opacity:.7"></span></div><div id="dfh" style="font-size:13px;opacity:.7;margin-top:6px">Místo uložení vybereš v dalším kroku.</div></div><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
 <input type="file" id="file" accept="image/*" hidden>
+<div class="natov" id="natov"><div class="natp" role="dialog" aria-modal="true" aria-label="Natočené záběry"><div class="nath"><div><h2>NATOČENO</h2><small id="natsub"></small></div><span class="sp"></span><button id="natpdf">Export PDF</button><button id="natsh" aria-expanded="false">Sdílet ▾</button><button id="natx">Zavřít</button></div><div class="natshb" id="natshb"><button data-sh="pdf" class="pri">Sdílet PDF…<small>iMessage, WhatsApp, e-mail a další</small></button><button data-sh="sms">iMessage<small>seznam jako text</small></button><button data-sh="mail">E-mail<small>seznam jako text</small></button><button data-sh="wa">WhatsApp<small>seznam jako text</small></button></div><div class="natl" id="natl"></div></div></div>
 <script>
 var S={dayStart:"08:00",shots:[]},DB=null,pick=null,pickPos=null,openSw=null;
 function uid(){return Math.random().toString(36).slice(2,9)}
@@ -1008,6 +1051,99 @@ document.getElementById("vermenu").addEventListener("click",function(e){var b=e.
  else if(a==="ren"){askName("Přejmenovat verzi",S.vers[S.cur].name,"Uložit",function(nm){S.vers[S.cur].name=nm;save();render()})}
  else if(a==="del"){var vn=S.vers[S.cur].name;ask("Smazat verzi „"+vn+"“? Ostatní verze zůstanou.","Smazat",function(){S.vers.splice(S.cur,1);S.cur=Math.max(0,S.cur-1);S.shots=S.vers[S.cur].shots;S.dayStart=S.vers[S.cur].dayStart||"08:00";save();render()},true)}});
 document.addEventListener("click",function(e){var m=document.getElementById("vermenu");if(m.classList.contains("on")&&!(e.target.closest&&e.target.closest("#vermenu,#verb")))m.classList.remove("on")});
+function nrm(t){return String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+function srRun(){var q=nrm(document.getElementById("srq").value.trim()),l=document.getElementById("srl"),n=0,h="",T=calc(),found=0;
+ S.shots.forEach(function(s,i){var it=s.type==="item";if(!it)n++;if(q&&nrm(s.title).indexOf(q)>-1){found++;var st=stLabel(s,it);h+='<button class="srr" data-i="'+i+'"><b>'+(it?'Položka':'Záběr '+n+'#')+'</b> <span class="srt">'+esc(s.title||"(bez názvu)")+'</span><small>'+toT(T[i].a)+' – '+toT(T[i].b)+(st?' · '+st:'')+'</small></button>'}});
+ l.innerHTML=q?(found?h:'<div class="srn">Nic nenalezeno.</div>'):'<div class="srn">Napiš název záběru.</div>'}
+function srGo(i){document.getElementById("srov").classList.remove("on");var s=S.shots[i];if(!s)return;if((stOf(s)==="done"||stOf(s)==="cancel")&&!EXP[s.id]){EXP[s.id]=true;render()}
+ var el=document.querySelector('#list .row[data-i="'+i+'"]');if(!el)return;el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("hit");setTimeout(function(){el.classList.remove("hit")},2500)}
+document.getElementById("srch").addEventListener("click",function(){var o=document.getElementById("srov"),q=document.getElementById("srq");o.classList.add("on");q.value="";srRun();setTimeout(function(){q.focus()},50)});
+document.getElementById("srq").addEventListener("input",srRun);
+document.getElementById("srq").addEventListener("keydown",function(e){if(e.key==="Enter"){var b=document.querySelector("#srl .srr");if(b)srGo(+b.dataset.i)}});
+document.getElementById("srx").addEventListener("click",function(){document.getElementById("srov").classList.remove("on")});
+document.getElementById("srl").addEventListener("click",function(e){var b=e.target.closest(".srr");if(b)srGo(+b.dataset.i)});
+
+var NAT=false;
+function natList(){var T=calc(),n=0,tot=0,out=[];S.shots.forEach(function(s,i){if(s.type==="item")return;n++;tot++;if(stOf(s)==="done")out.push({s:s,i:i,n:n,t:toT(T[i].a)+" – "+toT(T[i].b)})});
+ out.sort(function(a,b){var x=(a.s.title||"").trim(),y=(b.s.title||"").trim();if(!x&&y)return 1;if(x&&!y)return -1;return x.localeCompare(y,"cs",{numeric:true,sensitivity:"base"})||a.n-b.n});return {l:out,tot:tot}}
+function natUI(){var r=natList();document.getElementById("natc").textContent=r.l.length;if(!NAT)return;
+ document.getElementById("natsub").textContent="Natočeno "+r.l.length+" z "+r.tot+" záběrů · podle abecedy";
+ document.getElementById("natl").innerHTML=r.l.length?r.l.map(function(o){var s=o.s;return '<button class="natr" data-i="'+o.i+'"><span class="natth">'+(s.img?'<img src="'+esc(s.img)+'" alt="">':'')+'</span><span class="natx"><b>'+esc(s.title||"bez názvu")+'</b><small>#'+o.n+' · plán '+o.t+(s.cam?' · kamera '+esc(posLabel(+s.cam)):'')+'</small></span><span class="natt">'+(s.doneAt?fmtHM(s.doneAt):'✓')+'</span></button>'}).join(""):'<div class="natn">Zatím nebyl natočen žádný záběr.</div>'}
+function natOpen(){NAT=true;document.getElementById("natov").classList.add("on");document.getElementById("natb").setAttribute("aria-expanded","true");natUI()}
+function natClose(){NAT=false;document.getElementById("natov").classList.remove("on");document.getElementById("natb").setAttribute("aria-expanded","false")}
+document.getElementById("natb").addEventListener("click",function(){NAT?natClose():natOpen()});
+document.getElementById("natx").addEventListener("click",natClose);
+document.getElementById("natov").addEventListener("click",function(e){if(e.target===this)natClose()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&NAT)natClose()});
+document.getElementById("natl").addEventListener("click",function(e){var b=e.target.closest(".natr");if(b)srGo(+b.dataset.i)});
+document.getElementById("natpdf").addEventListener("click",function(){makeNatPdf()});
+var __natR=render;render=function(){__natR.apply(this,arguments);try{natUI()}catch(e){}};
+async function makeNatPdf(){
+ var L=natList();if(!L.l.length){toast("Zatím nebyl natočen žádný záběr.",3000);return}
+ var tb=toast("Vytvářím PDF natočených záběrů…");
+ try{var pdf=await natPdfBytes(L);tb.remove();
+  askSave("PDF natočených záběrů je připraveno k uložení.","natoceno-"+today(),".pdf",pdf,"application/pdf");
+ }catch(e){tb.remove();toast("PDF se nepodařilo vytvořit.",3500)}
+}
+async function natPdfBytes(L){
+ {
+  var W=1684,H=1190,M=40,CW=W-2*M,COLW=[100,280,560,300,200,CW-1440],X=[M],q;
+  for(q=0;q<5;q++)X.push(X[q]+COLW[q]);
+  var sc=document.createElement("canvas").getContext("2d"),rows=[];
+  var ims=await Promise.all(L.l.map(function(o){return loadImg(o.s.img)}));
+  L.l.forEach(function(o,k){var s=o.s,r={o:o,im:ims[k]};
+   sc.font="600 26px "+PFF;r.tl=pdfWrap(sc,s.title||"bez názvu",COLW[2]-24).slice(0,4);
+   sc.font="700 22px "+PFF;r.cl=s.cam?pdfWrap(sc,posLabel(+s.cam),COLW[3]-24).slice(0,3):[];
+   r.h=Math.max(r.im?176:90,r.tl.length*34+28,r.cl.length*30+28);rows.push(r)});
+  function startY(p){return (p===0?M+112:M+40)+38}
+  var limit=H-M-30,pages=[[]],pg=0,y=startY(0);
+  rows.forEach(function(r){if(y+r.h>limit&&pages[pg].length){pg++;pages[pg]=[];y=startY(pg)}r.y=y;pages[pg].push(r);y+=r.h});
+  var NP=pages.length,jpgs=[],nm=pname();
+  var d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.locText||S.loc;
+  var meta=[ds,loc,"Natočeno "+L.l.length+" z "+L.tot+" záběrů","seřazeno podle abecedy"].filter(Boolean);
+  for(var p=0;p<NP;p++){
+   var cv=document.createElement("canvas");cv.width=W;cv.height=H;var c=cv.getContext("2d");
+   c.fillStyle="#fff";c.fillRect(0,0,W,H);c.textBaseline="top";c.textAlign="left";
+   if(p===0){c.fillStyle="#12161c";c.font="700 44px "+PFF;c.fillText(nm+" – natočené záběry",M,M);c.fillStyle="#444";c.font="500 22px "+PFF;c.fillText(meta.join("   ·   "),M,M+60)}
+   else{c.fillStyle="#666";c.font="500 20px "+PFF;c.fillText(nm+" – natočené záběry",M,M)}
+   var hy=startY(p)-38;
+   c.fillStyle="#e8e9ec";c.fillRect(M,hy,CW,38);c.fillStyle="#12161c";c.font="700 18px "+PFF;
+   ["Č.","Storyboard","Záběr","Kamera","Plánovaný čas","Natočeno v"].forEach(function(t,j){c.fillText(t,X[j]+12,hy+9)});
+   c.strokeStyle="#aaa";c.lineWidth=1;c.strokeRect(M,hy,CW,38);
+   pages[p].forEach(function(r){var s=r.o.s,yy=r.y,h=r.h,j,pc=s.cam&&S.pos?colorInfo(S.pos[s.cam]):null,ci=colorInfo(s.color);
+    c.fillStyle="#12161c";c.font="700 26px "+PFF;c.fillText("#"+r.o.n,X[0]+12,yy+14);
+    if(r.im){var bw=COLW[1]-20,bh=Math.min(h-20,bw*9/16),v=s.imgView||{z:1,x:0,y:0};c.save();c.beginPath();c.rect(X[1]+10,yy+10,bw,bh);c.clip();c.translate(X[1]+10+bw/2+v.x/100*bw,yy+10+bh/2+v.y/100*bh);c.scale(v.z||1,v.z||1);pdfCover(c,r.im,-bw/2,-bh/2,bw,bh);c.restore()}
+    if(ci){c.fillStyle=ci[1];c.fillRect(X[2],yy,COLW[2],h)}
+    c.fillStyle=ci?ci[2]:"#12161c";c.font="600 26px "+PFF;r.tl.forEach(function(l,k){c.fillText(l,X[2]+12,yy+14+k*34)});
+    if(pc){c.fillStyle=pc[1];c.fillRect(X[3],yy,COLW[3],h)}
+    c.fillStyle=pc?pc[2]:"#12161c";c.font="700 22px "+PFF;r.cl.forEach(function(l,k){c.fillText(l,X[3]+12,yy+14+k*30)});
+    c.fillStyle="#12161c";c.font="500 22px "+PFF;c.fillText(r.o.t,X[4]+12,yy+16);
+    c.fillStyle="#17803f";c.fillRect(X[5]+8,yy+8,COLW[5]-16,54);c.fillStyle="#fff";c.font="700 26px "+PFF;c.textAlign="center";c.fillText(s.doneAt?fmtHM(s.doneAt):"✓",X[5]+COLW[5]/2,yy+21);c.textAlign="left";
+    c.strokeStyle="#aaa";for(j=0;j<6;j++)c.strokeRect(X[j],yy,COLW[j],h)});
+   c.fillStyle="#666";c.font="500 18px "+PFF;c.textAlign="right";c.fillText((p+1)+" / "+NP,W-M,H-M-6);c.textAlign="left";
+   jpgs.push({b:dataUrlBytes(cv.toDataURL("image/jpeg",0.88)),w:W,h:H});
+  }
+  return buildPdf(jpgs,842,595);
+ }
+}
+function natText(L){var d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{day:"numeric",month:"numeric",year:"numeric"});
+ return pname()+" – natočené záběry ("+ds+")\nNatočeno "+L.l.length+" z "+L.tot+" záběrů\n\n"+L.l.map(function(o){return "#"+o.n+" "+(o.s.title||"bez názvu")+(o.s.doneAt?" – "+fmtHM(o.s.doneAt):"")}).join("\n")}
+function natOpenUrl(u){var a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
+async function natShare(kind){
+ var L=natList();if(!L.l.length){toast("Zatím nebyl natočen žádný záběr.",3000);return}
+ var txt=natText(L),subj=pname()+" – natočené záběry";
+ if(kind==="sms"){natOpenUrl("sms:&body="+encodeURIComponent(txt));return}
+ if(kind==="mail"){natOpenUrl("mailto:?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(txt));return}
+ if(kind==="wa"){natOpenUrl("https://wa.me/?text="+encodeURIComponent(txt));return}
+ var tb=toast("Připravuji PDF ke sdílení…"),f;
+ try{var pdf=await natPdfBytes(L);f=new File([pdf],"natoceno-"+today()+".pdf",{type:"application/pdf"})}catch(e){tb.remove();toast("PDF se nepodařilo vytvořit.",3500);return}
+ tb.remove();
+ if(navigator.canShare&&navigator.share&&navigator.canShare({files:[f]})){
+  try{await navigator.share({files:[f],title:subj,text:subj})}catch(e){if(e&&e.name==="AbortError")return;ask("Sdílení se nepodařilo. PDF můžeš uložit přes Export PDF a poslat ho ručně, nebo poslat seznam jako text přes iMessage, e-mail či WhatsApp.","Rozumím",null,false)}
+  return}
+ ask("Toto zařízení nebo prohlížeč neumí sdílet soubor napřímo. Ulož PDF přes Export PDF, nebo pošli seznam jako text přes iMessage, e-mail či WhatsApp.","Rozumím",null,false)}
+document.getElementById("natsh").addEventListener("click",function(){var b=document.getElementById("natshb"),on=!b.classList.contains("on");b.classList.toggle("on",on);this.setAttribute("aria-expanded",on)});
+document.getElementById("natshb").addEventListener("click",function(e){var b=e.target.closest("[data-sh]");if(b)natShare(b.dataset.sh)});
 function start(raw){
  try{if(raw){var d=JSON.parse(raw);if(d&&d.shots)S=d}}catch(e){}
  try{normV()}catch(e){}
@@ -1021,6 +1157,7 @@ try{
  q.onerror=function(){start(localStorage.getItem("plan"))};
 }catch(e){var r=null;try{r=localStorage.getItem("plan")}catch(x){}start(r)}
 </script>
-<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}</script>
 </body>
 </html>
+
+</body></html>
