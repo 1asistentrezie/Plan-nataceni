@@ -346,6 +346,7 @@ header input#loc::placeholder{color:inherit;opacity:.5}
 .shcol{display:flex!important;flex-direction:column!important;align-items:stretch;gap:3px!important}
 .shrow{display:flex!important;gap:0!important}
 #tst label{display:none}
+textarea.pn{resize:none;overflow:hidden;height:2.5em;line-height:1.15!important;font-size:19px!important;align-self:center;flex:0 1 190px!important;min-width:120px!important;white-space:normal;border-bottom:1px solid rgba(128,128,128,.5)!important}
 .lbov{display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.88);flex-direction:column}
 .lbov.on{display:flex}
 .lbbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#12161c}
@@ -404,7 +405,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 </head>
 <body>
 <header>
-<input id="pn" class="pn" placeholder="Název projektu" aria-label="Název projektu" maxlength="80">
+<textarea id="pn" class="pn" rows="2" placeholder="Název projektu" aria-label="Název projektu" maxlength="80"></textarea>
 <div class="hd shiftbox" id="shiftbox"><span class="shtitle">Směna</span><div class="shcol"><div class="shrow"><label for="ds">od:</label><input id="ds" type="time"></div><div class="shrow"><label>do:</label><span class="big" id="end">--:--</span></div></div></div>
 <div class="hd sumbox" id="sumbox"><div class="sumrow"><label>Celkem</label><span class="big" id="tot">0 min</span></div><div class="sumrow"><label>Zbývá</label><span class="big" id="rem">0 min</span></div></div>
 <button class="hb" id="mn" aria-haspopup="true" aria-label="Menu">Menu ▾</button>
@@ -869,7 +870,7 @@ function closeDlg(){document.getElementById("dfw").style.display="none";dlgCb=nu
 document.getElementById("dno").addEventListener("click",function(){var f=dlgNo;closeDlg();if(f)f()});
 document.getElementById("dyes").addEventListener("click",function(){var f=dlgCb;closeDlg();if(f)f()});
 document.getElementById("dlg").addEventListener("click",function(e){if(e.target===this)closeDlg()});
-document.getElementById("pn").addEventListener("input",function(e){S.name=e.target.value;document.title=(S.name?S.name+" – ":"")+"Plán natáčení";save()});
+document.getElementById("pn").addEventListener("keydown",function(e){if(e.key==="Enter")e.preventDefault()});document.getElementById("pn").addEventListener("input",function(e){e.target.value=e.target.value.replace(/[\r\n]+/g," ");S.name=e.target.value;document.title=(S.name?S.name+" – ":"")+"Plán natáčení";save()});
 document.getElementById("pr").addEventListener("click",function(){S.posOpen=!S.posOpen;openSw=null;save();renderPanel()});
 document.addEventListener("click",function(e){if(openSw&&!(e.target.closest&&e.target.closest(".sw1"))){var k=openSw;openSw=null;if(k.charAt(0)==="p"){var ps=document.querySelectorAll("#pospanel .pal");for(var i=0;i<ps.length;i++)ps[i].remove()}else render()}});
 function placeMenu(){var m=document.getElementById("menu"),b=document.getElementById("mn").getBoundingClientRect();m.style.top=(b.bottom+6)+"px";m.style.left="auto";m.style.right=Math.max(8,window.innerWidth-b.right)+"px"}
