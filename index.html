@@ -346,6 +346,16 @@ header input#loc::placeholder{color:inherit;opacity:.5}
 .shcol{display:flex!important;flex-direction:column!important;align-items:stretch;gap:3px!important}
 .shrow{display:flex!important;gap:0!important}
 #tst label{display:none}
+.pnw{display:flex;flex-direction:column;gap:3px;flex:0 1 190px!important;min-width:120px;order:0}
+.pnw textarea.pn{flex:none!important;width:100%;min-width:0!important}
+.verb{align-self:flex-start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:0;border-radius:7px;padding:3px 10px;color:#fff;font:700 14px/1.2 Barlow,Arial,sans-serif}
+header{border-bottom:5px solid var(--vc,#2f6fca)}
+#vermenu{min-width:260px;max-width:90vw}
+#vermenu .mi.cur{background:var(--field)}
+#vermenu .vd{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+#vermenu small{display:block;font:500 13px Barlow,Arial,sans-serif;opacity:.7;margin-left:20px}
+#vermenu hr{border:0;border-top:1px solid var(--line);margin:4px 0}
+@media print{.verb{display:none}}
 .priow{position:relative;flex:0 0 auto}
 .prib{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:54px;min-height:44px;padding:2px 8px;border-radius:8px;border:1px solid var(--line);background:var(--field);color:var(--ink);font:700 16px Barlow,Arial,sans-serif;line-height:1.05}
 .prib small{font:600 10px Barlow,Arial,sans-serif;opacity:.8}
@@ -412,7 +422,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 </head>
 <body>
 <header>
-<textarea id="pn" class="pn" rows="2" placeholder="Název projektu" aria-label="Název projektu" maxlength="80"></textarea>
+<div class="pnw"><button class="verb" id="verb" aria-haspopup="true" aria-label="Verze plánu">Verze 1 ▾</button><textarea id="pn" class="pn" rows="2" placeholder="Název projektu" aria-label="Název projektu" maxlength="80"></textarea></div>
 <div class="hd shiftbox" id="shiftbox"><span class="shtitle">Směna</span><div class="shcol"><div class="shrow"><label for="ds">od:</label><input id="ds" type="time"></div><div class="shrow"><label>do:</label><span class="big" id="end">--:--</span></div></div></div>
 <div class="hd sumbox" id="sumbox"><div class="sumrow"><label>Celkem</label><span class="big" id="tot">0 min</span></div><div class="sumrow"><label>Zbývá</label><span class="big" id="rem">0 min</span></div></div>
 <button class="hb" id="mn" aria-haspopup="true" aria-label="Menu">Menu ▾</button>
@@ -430,6 +440,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <div class="posw" id="pospanel"></div>
 <div id="pv" aria-hidden="true"></div>
 <main id="list"></main>
+<div class="menu" id="vermenu" role="menu"></div>
 <div class="menu" id="menu" role="menu"><button class="mi" id="add">+ Přidat záběr</button><button class="mi" id="addi">+ Přidat poznámku</button><button class="mi" id="pr">Pozice kamery</button><button class="mi" id="bk">Zálohovat plán</button><button class="mi" id="ld">Načíst zálohu</button><button class="mi" id="prt" style="display:none">Tisk</button><button class="mi" id="qt">Ukončit aplikaci</button><button class="mi" id="pdfpos">Export pozic kamery (PDF)</button><button class="mi" id="pdf">Uložit jako PDF</button></div>
 <input type="file" id="imp" accept=".json,application/json" hidden>
 <div class="lbov" id="lbov" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek"><div class="lbbar"><button id="lbm" aria-label="Zmenšit">−</button><input type="range" id="lbr" min="50" max="400" value="100" aria-label="Zvětšení"><button id="lbp" aria-label="Zvětšit">+</button><button id="lbx" class="lbc">Zavřít</button></div><div class="lbsc" id="lbsc"><img id="lbimg" alt=""></div></div>
@@ -445,7 +456,7 @@ header .shiftbox{padding:3px 8px!important;gap:6px!important}
 <button id="skpen">Tužka</button><button id="skera">Guma</button><button id="skemoB">😀</button><button id="skimg">Obrázek</button><button id="skundo">Zpět</button><button id="skclr">Smazat vše</button>
 <span class="skfill"></span><button id="skcancel">Zrušit</button><button id="sksave" class="skok">Hotovo</button></div>
 <div class="skemo" id="skemo"><button class="cm" data-e="@cam0" aria-label="Kamera na sever" title="Kamera na sever"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(0)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>S</i></button><button class="cm" data-e="@cam90" aria-label="Kamera na východ" title="Kamera na východ"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(90)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>V</i></button><button class="cm" data-e="@cam180" aria-label="Kamera na jih" title="Kamera na jih"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(180)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>J</i></button><button class="cm" data-e="@cam270" aria-label="Kamera na západ" title="Kamera na západ"><svg viewBox="-70 -70 140 140" width="40" height="40"><g transform="rotate(270)" fill="#fff"><rect x="-30" y="0" width="60" height="40"/><rect x="-14" y="-14" width="28" height="14"/><path d="M-12 -14L-42 -52H42L12 -14Z" opacity=".4"/><circle cx="-15" cy="52" r="13"/><circle cx="15" cy="52" r="13"/><circle cx="0" cy="20" r="9" fill="#2b2f36"/></g></svg><i>Z</i></button><button class="dg" data-e="0">0</button><button class="dg" data-e="1">1</button><button class="dg" data-e="2">2</button><button class="dg" data-e="3">3</button><button class="dg" data-e="4">4</button><button class="dg" data-e="5">5</button><button class="dg" data-e="6">6</button><button class="dg" data-e="7">7</button><button class="dg" data-e="8">8</button><button class="dg" data-e="9">9</button><button data-e="😀">😀</button><button data-e="😂">😂</button><button data-e="😍">😍</button><button data-e="😎">😎</button><button data-e="🤔">🤔</button><button data-e="😮">😮</button><button data-e="😬">😬</button><button data-e="👍">👍</button><button data-e="👎">👎</button><button data-e="👏">👏</button><button data-e="🙌">🙌</button><button data-e="👉">👉</button><button data-e="👈">👈</button><button data-e="👆">👆</button><button data-e="👇">👇</button><button data-e="✅">✅</button><button data-e="❌">❌</button><button data-e="⚠️">⚠️</button><button data-e="❗">❗</button><button data-e="❓">❓</button><button data-e="⭐">⭐</button><button data-e="🔥">🔥</button><button data-e="💥">💥</button><button data-e="💡">💡</button><button data-e="🔦">🔦</button><button data-e="🎬">🎬</button><button data-e="🎥">🎥</button><button data-e="📷">📷</button><button data-e="🎞️">🎞️</button><button data-e="🎤">🎤</button><button data-e="🎧">🎧</button><button data-e="🔊">🔊</button><button data-e="🎭">🎭</button><button data-e="🚁">🚁</button><button data-e="🚗">🚗</button><button data-e="🚤">🚤</button><button data-e="🚶">🚶</button><button data-e="🏃">🏃</button><button data-e="👤">👤</button><button data-e="👥">👥</button><button data-e="🌧️">🌧️</button><button data-e="☀️">☀️</button><button data-e="🌙">🌙</button><button data-e="🌫️">🌫️</button><button data-e="⏱️">⏱️</button><button data-e="⏰">⏰</button><button data-e="🕯️">🕯️</button><button data-e="🪑">🪑</button><button data-e="📍">📍</button><button data-e="➡️">➡️</button><button data-e="⬅️">⬅️</button><button data-e="⬆️">⬆️</button><button data-e="⬇️">⬇️</button><button data-e="🔄">🔄</button><button data-e="↩️">↩️</button></div><input type="file" id="skfile" accept="image/*" hidden><div class="skwrap"><canvas id="skcv" width="1500" height="1000"></canvas></div></div>
-<div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div id="dfw" style="display:none;margin:0 0 14px;text-align:left"><label for="dfn" style="font-size:14px;opacity:.7">Název souboru</label><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><input id="dfn" type="text" maxlength="80" autocomplete="off" style="flex:1;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:0 10px;font:600 17px Barlow,Arial,sans-serif"><span id="dfe" style="font-size:16px;opacity:.7"></span></div><div style="font-size:13px;opacity:.7;margin-top:6px">Místo uložení vybereš v dalším kroku.</div></div><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
+<div class="dlg" id="dlg" role="dialog" aria-modal="true"><div><p id="dtx">Opravdu smazat tento řádek?</p><div id="dfw" style="display:none;margin:0 0 14px;text-align:left"><label for="dfn" style="font-size:14px;opacity:.7">Název souboru</label><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><input id="dfn" type="text" maxlength="80" autocomplete="off" style="flex:1;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:0 10px;font:600 17px Barlow,Arial,sans-serif"><span id="dfe" style="font-size:16px;opacity:.7"></span></div><div id="dfh" style="font-size:13px;opacity:.7;margin-top:6px">Místo uložení vybereš v dalším kroku.</div></div><div class="bt"><button id="dno">Zrušit</button><button class="yes" id="dyes">Smazat</button></div></div></div>
 <input type="file" id="file" accept="image/*" hidden>
 <script>
 var S={dayStart:"08:00",shots:[]},DB=null,pick=null,pickPos=null,openSw=null;
@@ -454,9 +465,19 @@ function toM(t){var p=(t||"0:0").split(":");return (+p[0])*60+(+p[1])}
 function toT(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")}
 function fmt(m){var h=Math.floor(m/60),r=m%60;return h?h+" h "+(r?r+" min":""):r+" min"}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+var VCOL=["#2f6fca","#3aa655","#8e5bd0","#ec6fa8","#1fb5ad","#f08a24"];
+function normV(){
+ if(!S.vers||!S.vers.length){S.vers=[{id:uid(),name:"Verze 1",dayStart:S.dayStart||"08:00"}];S.cur=0}
+ if(!(S.cur>=0&&S.cur<S.vers.length))S.cur=0;
+ S.vers.forEach(function(v,i){if(!v.name)v.name="Verze "+(i+1);if(!v.shots)v.shots=[]});
+ S.vers[S.cur].shots=S.shots;S.vers[S.cur].dayStart=S.dayStart}
+function ser(){var c=S.vers&&S.vers[S.cur],keep;if(c){c.dayStart=S.dayStart;keep=c.shots;c.shots=null}var j;try{j=JSON.stringify(S)}finally{if(c)c.shots=keep}return j}
+function syncVers(){if(!S.vers)return;var cur=S.vers[S.cur];cur.shots=S.shots;cur.dayStart=S.dayStart;if(S.vers.length<2)return;var m={};S.shots.forEach(function(s){m[s.id]=s});
+ S.vers.forEach(function(v,vi){if(vi===S.cur)return;v.shots.forEach(function(x){var y=m[x.id];if(!y)return;Object.keys(x).forEach(function(k){if(k!=="id"&&k!=="dur"&&k!=="gap"&&!(k in y))delete x[k]});Object.keys(y).forEach(function(k){if(k!=="id"&&k!=="dur"&&k!=="gap")x[k]=y[k]})})})}
+function pname(){var n=S.name||"Plán natáčení";return S.vers&&S.vers.length>1?n+" – "+S.vers[S.cur].name:n}
 function newShot(){return {id:uid(),title:"",note:"",img:"",dur:30,gap:0}}
 function calc(){var t=toM(S.dayStart);return S.shots.map(function(s){t+=s.gap;var a=t;t+=s.dur;return {a:a,b:t}})}
-function save(){clearTimeout(window.__pv);window.__pv=setTimeout(function(){try{refreshPv()}catch(e){}},250);try{if(DB){DB.transaction("s","readwrite").objectStore("s").put(JSON.stringify(S),"plan")}else{localStorage.setItem("plan",JSON.stringify(S))}}catch(e){}}
+function save(){try{syncVers()}catch(e){}clearTimeout(window.__pv);window.__pv=setTimeout(function(){try{refreshPv()}catch(e){}},250);try{if(DB){DB.transaction("s","readwrite").objectStore("s").put(ser(),"plan")}else{localStorage.setItem("plan",ser())}}catch(e){}}
 var CITIES=[["Praha",50.0755,14.4378],["Brno",49.1951,16.6068],["Ostrava",49.8209,18.2625],["Plzeň",49.7384,13.3736],["Liberec",50.7663,15.0543],["Olomouc",49.5938,17.2509],["České Budějovice",48.9745,14.4743],["Hradec Králové",50.2104,15.8327],["Pardubice",50.0343,15.7812],["Ústí nad Labem",50.6607,14.0323],["Zlín",49.2242,17.6627],["Karlovy Vary",50.2319,12.872],["Jihlava",49.3961,15.5912],["Kutná Hora",49.9484,15.2682],["Český Krumlov",48.8127,14.3175],["Tábor",49.4144,14.6578],["Znojmo",48.8555,16.0488],["Cheb",50.0796,12.3739],["Havlíčkův Brod",49.607,15.581],["Kladno",50.147,14.103],["Most",50.503,13.636],["Opava",49.938,17.904],["Frýdek-Místek",49.683,18.348],["Karviná",49.854,18.542],["Děčín",50.772,14.215],["Teplice",50.640,13.825],["Chomutov",50.460,13.418],["Jablonec nad Nisou",50.724,15.171],["Mladá Boleslav",50.412,14.903],["Prostějov",49.472,17.111],["Přerov",49.455,17.451],["Třebíč",49.215,15.882],["Kolín",50.028,15.200],["Příbram",49.690,14.010],["Trutnov",50.561,15.912],["Šumperk",49.965,16.971],["Vsetín",49.339,17.996],["Uherské Hradiště",49.070,17.460],["Hodonín",48.849,17.133],["Břeclav",48.759,16.882],["Litoměřice",50.533,14.131],["Písek",49.309,14.147],["Strakonice",49.261,13.902],["Klatovy",49.396,13.295],["Sokolov",50.181,12.640],["Domažlice",49.440,12.930],["Tachov",49.795,12.636],["Rokycany",49.742,13.594],["Beroun",49.964,14.072],["Mělník",50.351,14.474],["Nymburk",50.186,15.042],["Jičín",50.437,15.351],["Náchod",50.416,16.164],["Rychnov nad Kněžnou",50.163,16.275],["Chrudim",49.951,15.795],["Svitavy",49.756,16.469],["Žďár nad Sázavou",49.564,15.939],["Pelhřimov",49.431,15.223],["Jindřichův Hradec",49.144,15.003],["Prachatice",49.012,13.998],["Vimperk",49.054,13.776],["Český Těšín",49.746,18.626],["Nový Jičín",49.595,18.011],["Bruntál",49.988,17.464],["Jeseník",50.229,17.205],["Krnov",50.090,17.703],["Blansko",49.365,16.645],["Vyškov",49.277,17.002],["Kroměříž",49.298,17.393],["Valašské Meziříčí",49.472,17.971],["Třinec",49.678,18.670],["Orlová",49.846,18.430],["Havířov",49.780,18.437],["Mariánské Lázně",49.964,12.701],["Aš",50.224,12.195],["Františkovy Lázně",50.120,12.352],["Žatec",50.327,13.545],["Louny",50.357,13.797],["Kadaň",50.376,13.272],["Litvínov",50.602,13.612],["Česká Lípa",50.686,14.538],["Turnov",50.587,15.157],["Semily",50.603,15.335],["Vrchlabí",50.626,15.610],["Dvůr Králové nad Labem",50.432,15.813],["Polička",49.714,16.263],["Moravská Třebová",49.759,16.664],["Litomyšl",49.871,16.314],["Ústí nad Orlicí",49.974,16.394],["Vysoké Mýto",49.953,16.162],["Hlinsko",49.762,15.907],["Nové Město na Moravě",49.561,16.075],["Telč",49.184,15.454],["Slavonice",48.999,15.352],["Třeboň",49.003,14.771],["Soběslav",49.260,14.718],["Humpolec",49.543,15.357],["Čáslav",49.911,15.388],["Benešov",49.781,14.687],["Sedlčany",49.660,14.426],["Říčany",49.992,14.658],["Slaný",50.230,14.087],["Rakovník",50.103,13.733],["Kralupy nad Vltavou",50.241,14.311],["Brandýs nad Labem",50.186,14.663],["Roudnice nad Labem",50.425,14.261],["Lovosice",50.515,14.052],["Špindlerův Mlýn",50.727,15.610],["Harrachov",50.774,15.428],["Rožnov pod Radhoštěm",49.459,18.143],["Frenštát pod Radhoštěm",49.549,18.213],["Kopřivnice",49.599,18.145],["Bohumín",49.905,18.358],["Hranice",49.548,17.734],["Litovel",49.701,17.075],["Uničov",49.771,17.122],["Mohelnice",49.776,16.919],["Zábřeh",49.882,16.872],["Lipník nad Bečvou",49.527,17.585],["Mikulov",48.805,16.638],["Veselí nad Moravou",48.954,17.370],["Kyjov",49.011,17.122],["Boskovice",49.488,16.660],["Tišnov",49.348,16.425],["Ivančice",49.101,16.378],["Moravský Krumlov",49.049,16.312],["Slavkov u Brna",49.153,16.877],["Bučovice",49.149,17.002]];
 document.getElementById("locl").innerHTML=CITIES.map(function(c){return '<option value="'+c[0]+'">'}).join("");
 function today(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -489,7 +510,7 @@ function resolveLoc(txt){
 }
 function place(){if(S.loc==="custom")return [S.lat,S.lon];for(var i=0;i<CITIES.length;i++)if(CITIES[i][0]===S.loc)return [CITIES[i][1],CITIES[i][2]];return [50.0755,14.4378]}
 function sunUI(){
- document.getElementById("pn").value=S.name||"";document.title=(S.name?S.name+" – ":"")+"Plán natáčení";
+ document.getElementById("pn").value=S.name||"";document.title=(S.name?S.name+" – ":"")+"Plán natáčení";verUI();
  if(!S.date)S.date=today();if(!S.loc)S.loc="Praha";if(S.lat==null){S.lat=50.0755;S.lon=14.4378}
  if(S.locText==null){var oc=null;if(S.loc&&S.loc!=="custom"){CITIES.forEach(function(c){if(c[0]===S.loc)oc=c})}if(oc){S.locText=oc[0];S.locCity=oc[0];S.lat=oc[1];S.lon=oc[2]}else{S.locText="Praha";S.locCity="Praha"}S.loc="custom"}
  if(!S.locCity){var nc=nearestCity(S.lat,S.lon);S.locCity=nc?nc[0]:"Praha"}
@@ -656,7 +677,7 @@ async function makePosPdf(){
   function startY(p){return (p===0?M+80:M+40)+38}
   var limit=H-M-30,pages=[[]],pg=0,y=startY(0);
   rows.forEach(function(r){if(y+r.h>limit&&pages[pg].length){pg++;pages[pg]=[];y=startY(pg)}r.y=y;pages[pg].push(r);y+=r.h});
-  var NP=pages.length,jpgs=[],nmP=S.name||"Plán natáčení";
+  var NP=pages.length,jpgs=[],nmP=pname();
   for(var p=0;p<NP;p++){
    var cv=document.createElement("canvas");cv.width=W;cv.height=H;var c=cv.getContext("2d");
    c.fillStyle="#fff";c.fillRect(0,0,W,H);c.textBaseline="top";c.textAlign="left";
@@ -710,7 +731,7 @@ async function makePdf(){
   var limit=H-M-30,pages=[[]],pg=0,y=startY(0);
   rows.forEach(function(r){if(y+r.h>limit&&pages[pg].length){pg++;pages[pg]=[];y=startY(pg)}r.y=y;pages[pg].push(r);y+=r.h});
   var NP=pages.length,jpgs=[];
-  var d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.locText||S.loc,g=function(id){return document.getElementById(id).textContent},nm=S.name||"Plán natáčení";
+  var d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.locText||S.loc,g=function(id){return document.getElementById(id).textContent},nm=pname();
   var meta=[ds,loc,"Směna "+S.dayStart+" – "+g("end"),"Východ "+g("sr")+" · Západ "+g("ss"),"Celkem "+g("tot")];
   function drawRow(c,r){
    var s=r.s,y=r.y,h=r.h,ci=colorInfo(s.color),pc=s.cam&&S.pos?colorInfo(S.pos[s.cam]):null,k;
@@ -893,7 +914,7 @@ document.getElementById("mn").addEventListener("click",function(e){e.stopPropaga
 document.getElementById("menu").addEventListener("click",function(){this.classList.remove("on")});
 document.addEventListener("click",function(e){var m=document.getElementById("menu");if(m.classList.contains("on")&&!(e.target.closest&&e.target.closest("#menu,#mn")))m.classList.remove("on")});
 function printParts(){
- var T=calc(),n=0,rowList=[],d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.locText||S.loc,g=function(id){return document.getElementById(id).textContent},nm=S.name||"Plán natáčení";
+ var T=calc(),n=0,rowList=[],d=new Date((S.date||today())+"T12:00:00"),ds=isNaN(d)?(S.date||""):d.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),loc=S.locText||S.loc,g=function(id){return document.getElementById(id).textContent},nm=pname();
  var css='body{font-family:-apple-system,Helvetica,Arial,sans-serif;margin:16px;color:#12161c}h1{margin:0 0 4px;font-size:24px}.meta{display:flex;flex-wrap:wrap;gap:4px 20px;color:#444;font-size:13px;margin-bottom:12px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #bbb;padding:6px;vertical-align:top;text-align:left}th{background:#eee}tr{break-inside:avoid;page-break-inside:avoid}.pvb{width:220px;height:176px;overflow:hidden}.pvb img{width:100%;height:100%;object-fit:contain;display:block}.pvp{width:150px;height:110px;overflow:hidden;margin-top:4px}.pvp img{width:100%;height:100%;object-fit:cover;display:block}.pvs{width:220px;height:147px;border:1px solid #bbb;margin-top:4px}.pvs img{width:100%;height:100%;object-fit:contain;display:block}.tm{white-space:nowrap;font-weight:700;font-size:15px}.tm small,.st small{display:block;font-weight:400;font-size:11px}.im{width:230px}.im img{width:220px;display:block}.pi{width:90px;margin-top:4px}.it td{background:#f1f1f1}@page{size:A4 landscape;margin:10mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}';
  S.shots.forEach(function(s,i){
   var t=toT(T[i].a)+' – '+toT(T[i].b);
@@ -924,7 +945,7 @@ function plainSave2(name,blob,mime){
 }
 function askSave(txt,base,ext,data,mime){
  ask(txt,"Uložit…",function(){var v=(document.getElementById("dfn").value||"").replace(/[\\\/:*?"<>|]+/g,"-").trim()||base;document.getElementById("dfw").style.display="none";saveFile(v+ext,data,mime)},false,"Zavřít");
- document.getElementById("dfn").value=base;document.getElementById("dfe").textContent=ext;document.getElementById("dfw").style.display="block";
+ document.querySelector("#dfw label").textContent="Název souboru";document.getElementById("dfh").style.display="";document.getElementById("dfn").value=base;document.getElementById("dfe").textContent=ext;document.getElementById("dfw").style.display="block";
 }
 function saveFile(name,data,mime){
  var c=window.claude;
@@ -932,7 +953,7 @@ function saveFile(name,data,mime){
  return plainSave(name,data,mime);
 }
 function exportPlan(){saveFile("plan-natoceni.html",buildPrint(),"text/html")}
-function backupPlan(){return saveFile("plan-natoceni-zaloha-"+today()+".json",JSON.stringify(S),"application/json")}
+function backupPlan(){return saveFile("plan-natoceni-zaloha-"+today()+".json",ser(),"application/json")}
 function quitApp(){
  ask("Před ukončením uložit zálohu plánu do souboru?","Uložit zálohu",function(){backupPlan().then(confirmQuit,confirmQuit)},false,"Neukládat",confirmQuit);
 }
@@ -949,7 +970,7 @@ function restorePlan(f){
  var r=new FileReader();
  r.onload=function(){var d=null;try{d=JSON.parse(r.result)}catch(e){}
   if(!d||!Array.isArray(d.shots)){ask("Soubor není platná záloha plánu.","Rozumím",null,false);return}
-  ask("Nahradit současný plán načtenou zálohou?","Načíst",function(){S=d;S.dayStart=S.dayStart||"08:00";save();render()},true)};
+  ask("Nahradit současný plán načtenou zálohou?","Načíst",function(){S=d;S.dayStart=S.dayStart||"08:00";normV();save();render()},true)};
  r.readAsText(f);
 }
 
@@ -971,9 +992,26 @@ document.getElementById("trk").addEventListener("click",function(){S.track=!S.tr
 L.addEventListener("input",function(e){var t=e.target;if(t.dataset&&t.dataset.f==="note"){var n=t.nextElementSibling;if(n&&n.className==="notep")n.innerHTML=esc(t.value).replace(/\n/g,"<br>")}});
 window.addEventListener("beforeprint",function(){try{refreshPv()}catch(e){}document.querySelectorAll("#list textarea[data-f=note]").forEach(function(t){var n=t.nextElementSibling;if(n&&n.className==="notep")n.innerHTML=esc(t.value).replace(/\n/g,"<br>")})});
 setInterval(tick,15000);setInterval(function(){var el=document.getElementById("tn");if(el&&el.offsetParent){var d=new Date();el.textContent=pad2(d.getHours())+":"+pad2(d.getMinutes())+":"+pad2(d.getSeconds())}},1000);
+function verUI(){var v=S.vers&&S.vers[S.cur];if(!v)return;var c=VCOL[S.cur%VCOL.length],b=document.getElementById("verb");b.textContent=(S.vers.length>1?"Verze: ":"")+v.name+" ▾";b.style.background=c;document.querySelector("header").style.setProperty("--vc",c)}
+function verStats(v){var t=0,d=0;v.shots.forEach(function(s){if(s.type==="item")return;t++;if(s.done)d++});return d+" / "+t+" natočeno"}
+function verMenu(){var m=document.getElementById("vermenu"),h="";syncVers();
+ S.vers.forEach(function(v,i){h+='<button class="mi'+(i===S.cur?' cur':'')+'" data-vi="'+i+'"><span class="vd" style="background:'+VCOL[i%VCOL.length]+'"></span>'+(i===S.cur?'✓ ':'')+esc(v.name)+'<small>'+verStats(v)+'</small></button>'});
+ h+='<hr><button class="mi" data-va="new">+ Nová verze (kopie této)</button><button class="mi" data-va="ren">Přejmenovat tuto verzi</button>'+(S.vers.length>1?'<button class="mi" data-va="del">Smazat tuto verzi</button>':'');
+ m.innerHTML=h}
+function switchVer(n){syncVers();S.cur=n;S.shots=S.vers[n].shots;S.dayStart=S.vers[n].dayStart||"08:00";stOpen=null;openPr=null;openSw=null;save();render()}
+function askName(title,val,ok,cb){ask(title,ok,function(){var v=(document.getElementById("dfn").value||"").trim();if(v)cb(v)},false,"Zrušit");document.querySelector("#dfw label").textContent="Název verze";document.getElementById("dfn").value=val;document.getElementById("dfe").textContent="";document.getElementById("dfw").style.display="block";document.getElementById("dfh").style.display="none"}
+document.getElementById("verb").addEventListener("click",function(e){e.stopPropagation();var m=document.getElementById("vermenu");if(m.classList.contains("on")){m.classList.remove("on");return}verMenu();var b=document.getElementById("verb").getBoundingClientRect();m.style.top=(b.bottom+6)+"px";m.style.right="auto";m.style.left=Math.max(8,b.left)+"px";m.classList.add("on")});
+document.getElementById("vermenu").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;this.classList.remove("on");
+ if(b.dataset.vi!==undefined){var n=+b.dataset.vi;if(n!==S.cur)switchVer(n);return}
+ var a=b.dataset.va;
+ if(a==="new"){syncVers();var src=S.vers[S.cur],copy=src.shots.map(function(s){return Object.assign({},s)});askName("Nová verze plánu (kopie "+src.name+")","Verze "+(S.vers.length+1),"Vytvořit",function(nm){S.vers.push({id:uid(),name:nm,dayStart:S.dayStart,shots:copy});switchVer(S.vers.length-1)})}
+ else if(a==="ren"){askName("Přejmenovat verzi",S.vers[S.cur].name,"Uložit",function(nm){S.vers[S.cur].name=nm;save();render()})}
+ else if(a==="del"){var vn=S.vers[S.cur].name;ask("Smazat verzi „"+vn+"“? Ostatní verze zůstanou.","Smazat",function(){S.vers.splice(S.cur,1);S.cur=Math.max(0,S.cur-1);S.shots=S.vers[S.cur].shots;S.dayStart=S.vers[S.cur].dayStart||"08:00";save();render()},true)}});
+document.addEventListener("click",function(e){var m=document.getElementById("vermenu");if(m.classList.contains("on")&&!(e.target.closest&&e.target.closest("#vermenu,#verb")))m.classList.remove("on")});
 function start(raw){
  try{if(raw){var d=JSON.parse(raw);if(d&&d.shots)S=d}}catch(e){}
- if(!S.shots.length&&!raw){S.shots=[newShot(),newShot()];S.shots[0].title="Záběr 1";S.shots[1].title="Záběr 2"}
+ try{normV()}catch(e){}
+ if(!S.shots.length&&!raw){S.shots=[newShot(),newShot()];S.shots[0].title="Záběr 1";S.shots[1].title="Záběr 2";normV()}
  render();
 }
 try{
